@@ -8,8 +8,8 @@
           <el-col :span="8">
             <div class="item_card">
                 <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
-                <div class="img-tips">
-                  <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴</p>
+                <div class="img-tips" @click="handleHomeRoute">
+                  <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴...</p>
                 </div>
                 <div class="item_text"><p>音乐广场</p></div>
             </div>
@@ -18,7 +18,7 @@
             <div class="item_card">
               <img src="https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg">
               <div class="img-tips">
-                <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴</p>
+                <p>一个人听着耳机？闲散无聊的午后还是失眠的夜晚？也许这里你能发现有趣的故事，好听的歌，认识有趣的人...</p>
               </div>
               <div class="item_text"><p>音乐动态</p></div>
             </div>
@@ -27,12 +27,15 @@
             <div class="item_card">
               <img src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg">
               <div class="img-tips">
-                <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴</p>
+                <p>漂泊的身需要有一张床来安放，同时孤独的心也需要有它自己的家...</p>
               </div>
               <div class="item_text"><p>我的主页</p></div>
             </div>
           </el-col>
         </el-row>
+        <div class="footer_wrapper">
+          <home-footer/>
+        </div>
       </div>
   </div>
 </template>
@@ -41,17 +44,21 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
+import HomeFooter from "@/components/common/HomeFooter";
+
 export default {
   name: 'Home',
   components: {
-
+    HomeFooter
   },
   data() {
     return {
     }
   },
   methods: {
-
+    handleHomeRoute(){
+      console.log("route change")
+    }
   },
   mounted() {
   }
@@ -80,7 +87,7 @@ export default {
     margin: 0 auto;
     .el-row {
       margin-bottom: 20px;
-      height: 500px;
+      height: 460px;
       &:last-child {
         margin-bottom: 0;
       }
