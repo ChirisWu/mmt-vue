@@ -7,6 +7,29 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/mhome',
+    name: 'Mhome',
+    component: () => import('@/views/ConcretHomeWrapper'),
+    children: [
+      {
+        path: '/user',
+        name: 'User',
+        component: ()=> import('@/views/UserPageHome')
+      },
+      {
+        path: '/square',
+        name: 'Square',
+        component: ()=> import('@/views/SquareHome')
+      },
+      {
+        path: '/moment',
+        name: 'Moment',
+        component: ()=> import('@/views/MomentHome')
+      }
+    ]
+  },
+
 
 ]
 

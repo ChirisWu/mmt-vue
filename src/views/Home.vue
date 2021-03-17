@@ -7,8 +7,8 @@
         <el-row>
           <el-col :span="8">
             <div class="item_card">
-                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
-                <div class="img-tips" @click="handleHomeRoute">
+                <img src="https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg">
+                <div class="img-tips" @click="handleHomeRoute(0)">
                   <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴...</p>
                 </div>
                 <div class="item_text"><p>音乐广场</p></div>
@@ -16,8 +16,8 @@
           </el-col>
           <el-col :span="8">
             <div class="item_card">
-              <img src="https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg">
-              <div class="img-tips">
+              <img src="https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg" >
+              <div class="img-tips" @click="handleHomeRoute(1)">
                 <p>一个人听着耳机？闲散无聊的午后还是失眠的夜晚？也许这里你能发现有趣的故事，好听的歌，认识有趣的人...</p>
               </div>
               <div class="item_text"><p>音乐动态</p></div>
@@ -25,8 +25,8 @@
           </el-col>
           <el-col :span="8">
             <div class="item_card">
-              <img src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg">
-              <div class="img-tips">
+              <img src="https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg">
+              <div class="img-tips" @click="handleHomeRoute(2)">
                 <p>漂泊的身需要有一张床来安放，同时孤独的心也需要有它自己的家...</p>
               </div>
               <div class="item_text"><p>我的主页</p></div>
@@ -53,11 +53,17 @@ export default {
   },
   data() {
     return {
+      home_routes:[
+          'mhome/square',
+          'mhome/moment',
+          'mhome/user'
+      ]
     }
   },
   methods: {
-    handleHomeRoute(){
+    handleHomeRoute(i){
       console.log("route change")
+      this.$router.push(this.home_routes[i])
     }
   },
   mounted() {
@@ -138,7 +144,7 @@ export default {
       }
     }
     .item_card:hover img{
-      transform: scale(1.2);
+      transform: scale(1.15);
     }
     .item_card:hover .img-tips{
         display: block;
