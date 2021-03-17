@@ -36,12 +36,12 @@
               <el-divider style="height: 100%" direction="vertical"></el-divider>
             </div>
             <div class="m_user_info_item">
-              <div style="padding-top: 20px;"><i class="el-icon-paperclip"></i> <el-link :href="userInfo.personalUrl">{{userInfo.personalUrl}}</el-link></div>
+              <div style="padding-top: 20px; overflow: hidden; text-overflow: ellipsis"><i class="el-icon-paperclip"></i> <el-link :href="userInfo.personalUrl">{{userInfo.personalUrl}}</el-link></div>
               <div style="padding-top: 10px;"><i class="el-icon-location-outline"></i> {{userInfo.userExtInfos.location}}
                 <el-divider direction="vertical"></el-divider>
                 <i class="el-icon-postcard">&nbsp;{{userInfo.userExtInfos.work}}</i>
                 <el-divider direction="vertical"></el-divider>
-                上次活跃时间： {{userInfo.userStatistic.lastActiveDatetime}}
+                上次活跃： {{userInfo.userStatistic.lastActiveDatetime}}
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default {
           concernCount: 0,
           fansCount: 0,
           id: 0,
-          lastActiveDatetime: "2021-03-17 11:42:15",
+          lastActiveDatetime: "2021-03-17",
           messageCount: 0,
           originalCount: 0,
           personalPageViews: 0,

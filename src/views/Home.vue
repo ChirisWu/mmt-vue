@@ -1,13 +1,13 @@
 <template>
   <div class="home">
     <div class="home_header">
-        <img src="../assets/home/header.png">
+        <img src="../assets/home/city.jpg">
     </div>
       <div class="home_list_wrapper">
         <el-row>
           <el-col :span="8">
             <div class="item_card">
-                <img src="https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg">
+                <img src="../assets/home/square2.jpg">
                 <div class="img-tips" @click="handleHomeRoute(0)">
                   <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴...</p>
                 </div>
@@ -16,7 +16,7 @@
           </el-col>
           <el-col :span="8">
             <div class="item_card">
-              <img src="https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg" >
+              <img src="../assets/home/moment.jpg" >
               <div class="img-tips" @click="handleHomeRoute(1)">
                 <p>一个人听着耳机？闲散无聊的午后还是失眠的夜晚？也许这里你能发现有趣的故事，好听的歌，认识有趣的人...</p>
               </div>
@@ -25,7 +25,7 @@
           </el-col>
           <el-col :span="8">
             <div class="item_card">
-              <img src="https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg">
+              <img src="../assets/home/personal2.jpg">
               <div class="img-tips" @click="handleHomeRoute(2)">
                 <p>漂泊的身需要有一张床来安放，同时孤独的心也需要有它自己的家...</p>
               </div>
@@ -121,7 +121,7 @@ export default {
         text-align: center;
         font-size: 19px;
         color: rgb(255,255,255);
-        background-color: #823131;
+        background-color: #d95151;
         opacity: 0.4;
         width: 100%;
         height: 80%;
