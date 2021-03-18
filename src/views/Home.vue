@@ -33,10 +33,10 @@
             </div>
           </el-col>
         </el-row>
-        <div class="footer_wrapper">
-          <home-footer/>
-        </div>
       </div>
+    <div class="footer_wrapper">
+      <home-footer/>
+    </div>
   </div>
 </template>
 
@@ -125,7 +125,7 @@ export default {
         opacity: 0.4;
         width: 100%;
         height: 80%;
-        border: 1px solid white;
+        border: 2px solid white;
         position: absolute;
         top: 0;
         p{
@@ -149,6 +149,11 @@ export default {
     .item_card:hover .img-tips{
         display: block;
     }
+  }
+  .footer_wrapper{
+    width: 70%;
+    margin: 188px auto 0 auto;
+    border-top: 1px rgb(213,213,213) solid;
   }
 
 </style>

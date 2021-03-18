@@ -47,6 +47,28 @@
           </div>
       </div>
     </div>
+    <div class="m_user_statistic_wrapper">
+      <div class="m_user_piece_list">
+        <el-row :gutter="20">
+          <el-col :span="6"><div class="m_user_piece_card">
+            <img src="../assets/home/video.jpg">
+            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.videoCount}}个视屏</h3></div>
+          </div></el-col>
+          <el-col :span="6"><div class="m_user_piece_card">
+            <img src="../assets/home/音频封面.jpg">
+            <div class="m_user_piece_tip"><h3>{{userInfo .userStatistic.radioCount}}首音频</h3></div>
+          </div></el-col>
+          <el-col :span="6"><div class="m_user_piece_card">
+            <img src="../assets/home/动态2.jpg">
+            <div class="m_user_piece_tip"><h3>我的星球</h3></div>
+          </div></el-col>
+          <el-col :span="6"><div class="m_user_piece_card">
+            <img src="../assets/home/birds.png">
+            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.sharesCount}}篇分享</h3></div>
+          </div></el-col>
+        </el-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,7 +109,6 @@ export default {
 
 
       },
-      gender: 1
     }
   }
 }
@@ -96,7 +117,7 @@ export default {
 <style lang="less" scoped>
 
   .user_page{
-    width:90%;
+    width:94.4%;
     height: 100%;
     padding: 30px 40px 40px 40px;
     margin: 0;
@@ -105,7 +126,7 @@ export default {
   .m_user_infos{
     margin: 0;
     width: 100%;
-    height: 270px;
+    height: 300px;
     .m_avatar_wrapper{
       width: 20%;
       height: 100%;
@@ -146,6 +167,51 @@ export default {
         .double_line_info{
           width: 70px;
           text-align: center;
+        }
+      }
+    }
+  }
+
+  .m_user_statistic_wrapper{
+    width: 100%;
+    height: 800px;
+    padding-top: 60px;
+    .m_user_piece_list{
+      .m_user_piece_card{
+        height: 340px;
+        position: relative !important;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        img{
+          height: 80%;
+          width: 80%;
+          margin: 0;
+          padding: 10%;
+          transition: all 0.3s;
+        }
+        .m_user_piece_tip{
+          position: absolute;
+          bottom: 17%;
+          left: 15%;
+          height: 70%;
+          width: 70%;
+          color: black;
+          opacity: 0.5;
+          border: 1px black solid;
+          background: #fff;
+          display: none;
+          h3{
+            margin-top: 50%;
+            text-align: center;
+          }
+        }
+      }
+      .m_user_piece_card:hover{
+          img{
+            transform: scale(1.2);
+
+          }
+        .m_user_piece_tip{
+          display: block;
         }
       }
     }

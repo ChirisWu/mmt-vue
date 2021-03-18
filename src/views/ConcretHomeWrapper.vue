@@ -153,7 +153,6 @@ export default {
 
   .m_home_content {
     width: 70%;
-    height: 900px;
     margin: 0 auto;
     border: solid 1px rgb(213, 213, 213);
     border-top: none;
