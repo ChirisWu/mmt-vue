@@ -1,44 +1,76 @@
 <template>
-  <div class="mmt_user_creation">
-    <div class="mmt_user_creation_header">
-
+    <div class="mmt_user_creation">
+        <div class="mmt_user_creation_header">
+            <h2>创作者中心</h2>
+        </div>
+        <el-row :gutter="30" type="flex" class="mmt_user_creation_list" justify="center">
+            <el-col :span="6">
+                <el-card shadow="hover" class="mmt_user_creation_item"  @click="handleCreateRoute(0)">
+                    <p><i class="el-icon-video-camera-solid"/></p>
+                    <h3>视频</h3>
+                </el-card>
+            </el-col>
+            <el-col :span="6">
+                <el-card shadow="hover" class="mmt_user_creation_item" @click="handleCreateRoute(1)">
+                    <p><i class="el-icon-mic"/></p>
+                    <h3>音频</h3>
+                </el-card>
+            </el-col>
+            <el-col :span="6">
+                <el-card shadow="hover" class="mmt_user_creation_item" @click="handleCreateRoute(2)">
+                    <p><i class="el-icon-s-help"/></p>
+                    <h3>动态</h3>
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
-    <el-row :gutter="30" type="flex" class="mmt_user_creation_list" justify="center">
-      <el-col :span="6"><el-card shadow="hover">
-       <p> <i class="el-icon-video-camera-solid"/></p>
-      </el-card></el-col>
-      <el-col :span="6"><el-card shadow="hover">
-        鼠标悬浮时显示
-      </el-card></el-col>
-      <el-col :span="6"><el-card shadow="hover">
-        鼠标悬浮时显示
-      </el-card></el-col>
-    </el-row>
-  </div>
 </template>
 
 <script>
-export default {
-name: "Creation"
-}
+    import {goCreationTypes} from "../../router/userHomePage/userPageRoutes";
+
+    export default {
+        name: "Creation",
+        methods: {
+            handleCreateRoute(index) {
+               goCreationTypes(this.$router, index)
+            }
+        }
+    }
 </script>
 
 <style lang="less" scoped>
 
-  .mmt_user_creation{
-    width: 100%;
-    height: 100%;
-    .mmt_user_creation_header{
-      height: 200px;
-      width: 100%;
-      background: darkseagreen;
+    .mmt_user_creation {
+        width: 100%;
+        height: 100%;
 
+        .mmt_user_creation_header {
+            height: 200px;
+            width: 100%;
+            border-bottom: solid 1px rgb(213,213,213);
+            h2{
+                margin: 0;
+            }
+
+        }
+        .mmt_user_creation_list{
+            padding-top: 56px;
+        }
+        .mmt_user_creation_item {
+            background: #cecccc;
+
+            p {
+                font-size: 70px;
+                text-align: center;
+                padding: 0;
+                margin: 0;
+            }
+
+            h3 {
+                text-align: center;
+            }
+        }
     }
-    .mmt_user_creation_item{
-      background: #cecccc;
-    }
-
-
-  }
 
 </style>

@@ -31,7 +31,23 @@ const routes = [
         path: '/creation',
         name: 'Creation',
         component: () => import('@/components/userPage/Creation')
+      },
+      {
+        path:'/create_video',
+        name: 'CreateVideo',
+        component: () => import('@/components/userPage/VideoCreation')
+      },
+      {
+        path: '/create_radio',
+        name: 'CreateRadio',
+        component: () => import('@/components/userPage/RadioCreation')
+      },
+      {
+        path: '/create_moment',
+        name: 'CreateMoment',
+        component: () => import('@/components/userPage/MomentCreation')
       }
+
     ]
   },
   {
