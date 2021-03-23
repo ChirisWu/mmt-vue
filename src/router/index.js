@@ -26,9 +26,19 @@ const routes = [
         path: '/moment',
         name: 'Moment',
         component: ()=> import('@/views/MomentHome')
+      },
+      {
+        path: '/creation',
+        name: 'Creation',
+        component: () => import('@/components/userPage/Creation')
       }
     ]
   },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: () => import('@/components/upload/singleUpload')
+  }
 
 
 ]

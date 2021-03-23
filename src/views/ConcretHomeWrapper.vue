@@ -19,7 +19,7 @@
               </el-input>
             </span>
           <span class="m_header_button_wrapper">
-            <el-button  round size="small">创作中心</el-button>
+            <el-button  round size="small" @click="handleGoCreation">创作中心</el-button>
           </span>
 
           <div class="m_header_avatar_wrapper">
@@ -50,13 +50,18 @@
 </template>
 
 <script>
+import { goCreation } from '@/router/userHomePage/userPageRoutes'
 export default {
   name: "ConcretHomeWrapper",
   data() {
     return {}
   },
   computed: {},
-  methods: {},
+  methods: {
+    handleGoCreation() {
+      goCreation(this.$router)
+    }
+  },
 }
 </script>
 

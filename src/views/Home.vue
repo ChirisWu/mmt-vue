@@ -152,7 +152,7 @@ export default {
   }
   .footer_wrapper{
     width: 70%;
-    margin: 188px auto 0 auto;
+    margin: 130px auto 0 auto;
     border-top: 1px rgb(213,213,213) solid;
   }
 
