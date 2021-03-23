@@ -48,6 +48,9 @@
         .mmt_user_creation_header {
             height: 200px;
             width: 100%;
+            h2{
+                padding: 40PX;
+            }
             border-bottom: solid 1px rgb(213,213,213);
             h2{
                 margin: 0;

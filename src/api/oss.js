@@ -1,12 +1,28 @@
 import http from "@/util/http";
-const signature_api = '/oss/signature'
+
+
+
+export const signature_api = '/oss/signature'
+export const ossUploadUrl = 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com'
 
 /**
  * 服务器签名
  */
-export function signature() {
+const ossService = {}
+function signature() {
     return http({
         url: 'oss/signature',
         method:'get'
     })
 }
+ossService.OssUploadUrl = 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com'
+
+ossService.signature = function () {
+    return http({
+        url: 'oss/signature',
+        method:'get'
+    })
+}
+
+export default ossService
+

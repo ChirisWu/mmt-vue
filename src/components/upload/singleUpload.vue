@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-  import {signature} from '@/api/oss'
+  import ossService from '@/api/oss'
 
   export default {
     name: 'singleUpload',
@@ -89,7 +89,7 @@
           return true;
         }
         return new Promise((resolve, reject) => {
-          signature().then(response => {
+          ossService.signature().then(response => {
             console.log(response)
             let data = response.data.data
             _self.dataObj.policy = data.policy;

@@ -174,7 +174,7 @@ export default {
 
   .m_user_statistic_wrapper{
     width: 100%;
-    height: 800px;
+    /*height: 400px;*/
     padding-top: 60px;
     .m_user_piece_list{
       .m_user_piece_card{

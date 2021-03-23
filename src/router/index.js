@@ -54,6 +54,11 @@ const routes = [
     path: '/upload',
     name: 'Upload',
     component: () => import('@/components/upload/singleUpload')
+  },
+  {
+    path: '/drag_upload',
+    name: "DragUpload",
+    component: () => import('@/components/upload/DragUpload')
   }
 
 
