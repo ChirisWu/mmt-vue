@@ -51,6 +51,11 @@ const routes = [
     ]
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login')
+  },
+  {
     path: '/upload',
     name: 'Upload',
     component: () => import('@/components/upload/singleUpload')
@@ -59,7 +64,8 @@ const routes = [
     path: '/drag_upload',
     name: "DragUpload",
     component: () => import('@/components/upload/DragUpload')
-  }
+  },
+
 
 
 ]

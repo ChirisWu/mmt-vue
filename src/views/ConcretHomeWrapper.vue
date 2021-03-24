@@ -37,7 +37,7 @@
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
-            <span style="margin-left: 40px;"> <router-link to="/">登 录</router-link></span> | <span><router-link to="/">注 册</router-link></span>
+            <span style="margin-left: 40px;"> <router-link to="/login">登 录</router-link></span> | <span><router-link to="/">注 册</router-link></span>
           </div>
         </div>
       </div>
