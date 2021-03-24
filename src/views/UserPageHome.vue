@@ -178,7 +178,7 @@ export default {
     padding-top: 60px;
     .m_user_piece_list{
       .m_user_piece_card{
-        height: 280px;
+        height: 340px;
         position: relative !important;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         img{

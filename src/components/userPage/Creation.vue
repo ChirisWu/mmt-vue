@@ -19,7 +19,7 @@
             <el-col :span="6">
                 <el-card shadow="hover" class="mmt_user_creation_item" @click="handleCreateRoute(2)">
                     <p><i class="el-icon-s-help"/></p>
-                    <h3>动态</h3>
+                    <h3>轻语</h3>
                 </el-card>
             </el-col>
         </el-row>

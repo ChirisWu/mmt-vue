@@ -3,7 +3,7 @@ import http from "@/util/http";
 
 
 export const signature_api = '/oss/signature'
-export const ossUploadUrl = 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com'
+export const ossUploadUrl = 'https://mmt-resource.oss-cn-hangzhou.aliyuncs.com'
 
 /**
  * 服务器签名
