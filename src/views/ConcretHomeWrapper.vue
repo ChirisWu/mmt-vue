@@ -72,6 +72,7 @@ export default {
   height: 100%;
   padding: 0;
   border: 0;
+  position: relative;
 
   .m_home_header {
     width: 100%;

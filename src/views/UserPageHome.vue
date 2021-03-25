@@ -69,10 +69,15 @@
         </el-row>
       </div>
     </div>
+    <el-button @click="refreshToken">
+      refresh
+    </el-button>
   </div>
 </template>
 
 <script>
+import {get_access_token} from "@/util/auth";
+
 export default {
   name: "UserPageHome",
   data(){
@@ -106,9 +111,15 @@ export default {
           videoCount: 0
 
         }
-
-
       },
+    }
+  },
+  methods: {
+    async refreshToken() {
+      console.log('loginForm mouted')
+      let access = await get_access_token()
+      console.log(access)
+
     }
   }
 }

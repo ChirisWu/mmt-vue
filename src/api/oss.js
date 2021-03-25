@@ -2,7 +2,7 @@ import http from "@/util/http";
 
 
 
-export const signature_api = '/oss/signature'
+export const signature_api = '/pc/oss/signature'
 export const ossUploadUrl = 'https://mmt-resource.oss-cn-hangzhou.aliyuncs.com'
 
 /**
@@ -19,7 +19,7 @@ ossService.OssUploadUrl = 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com'
 
 ossService.signature = function () {
     return http({
-        url: 'oss/signature',
+        url: '/pc/oss/signature',
         method:'get'
     })
 }

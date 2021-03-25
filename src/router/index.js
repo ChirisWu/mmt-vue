@@ -53,7 +53,19 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/Login')
+    component: () => import('@/views/Login'),
+    children: [
+      {
+        path: '',
+        name: 'LoginForm',
+        component: () => import('@/components/login/LoginForm')
+      },
+      {
+        path: '/register',
+        name: 'Register',
+        component: () => import('@/components/login/RegisterForm')
+      }
+    ]
   },
   {
     path: '/upload',

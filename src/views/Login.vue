@@ -7,25 +7,20 @@
                 </el-col>
                 <el-col :span="16"><h2>登录MLife</h2></el-col>
             </el-row>
-            <el-form class="mmt_login_form">
-                <el-form-item style="text-align: center">
-                    <el-avatar :size="80" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-                </el-form-item>
-                <el-form-item>
-                    <el-input placeholder="用户名或邮箱"></el-input>
-                </el-form-item>
-                <el-input placeholder="密码"></el-input>
-                <el-form-item>
-                    <el-button type="primary" plain>登录</el-button>
-                </el-form-item>
-            </el-form>
+          <router-view/>
+
         </div>
+
     </div>
 </template>
 
 <script>
+import LoginForm from "@/components/login/LoginForm";
     export default {
-        name: "Login"
+        name: "Login",
+      components: {
+          LoginForm
+      }
     }
 </script>
 
@@ -35,8 +30,10 @@
         height: 100%;
         background: url('../assets/login/loginbg.jpg');
         background-size: cover;
+        position: relative;
+        padding-top: 5%;
         .mmt_login_form_container{
-            width: 400px;
+            width: 340px;
             height: 600px;
             margin: 0 auto;
             padding: 30px;
@@ -65,15 +62,18 @@
                     padding: 10px;
                 }
             }
-        }
-        .mmt_login_form{
-            padding: 40px;
-            margin-top: 40px;
-            .el-input{
-                margin: 10px 0;
-            }
-        }
 
+          .mmt_link_footer {
+            padding: 0 40px;
+            text-align: center;
+
+            a {
+              color: #606266;
+              text-decoration: none;
+              font-size: 14px;
+            }
+          }
+        }
     }
 
 </style>

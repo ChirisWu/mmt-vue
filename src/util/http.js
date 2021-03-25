@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const http =axios.create({
-    baseURL: 'http://localhost:8848/pc',
+    baseURL: 'http://localhost:8848',
     timeout: 200000
 })
 

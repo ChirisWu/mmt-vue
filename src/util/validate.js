@@ -1,5 +1,3 @@
-import {MessageBox} from 'element-ui';
-
 /**
  * 过滤特殊字符
  */
@@ -32,12 +30,6 @@ export function validatePass(value) {
  * 验证验证码
  */
 export function validateCode(value) {
-    let reg = /^[A-Za-z0-9]{6}$/;
+    let reg = /^[0-9]{6}$/;
     return !reg.test(value) ? true : false;
 }
-
-/**
- * 没有使用default时，可以同时声明多个export。
- * 文件 import 需要花括号。
- */
-
