@@ -22,18 +22,19 @@ export function set_access_token(accessToken, expiresIn){
 
     }
  */
-export async function get_access_token() {
+export function get_access_token() {
     let access = Cookies.get(access_token)
     if (access !== undefined && access !== null) {
         return access;
     }
     let refresh = get_refresh_token()
     if (refresh === undefined || refresh === null) {
-        return null
+        return undefined
     }
-    access = await accountService.refresh_token(refresh)
-    set_access_token(access.access_token, access.expiresIn)
-    return access.access_token
+    let tokenObj = accountService.refresh_token(refresh)
+    let token  = tokenObj.tokenHead + ' ' + tokenObj.token
+    set_access_token(token, tokenObj.expiresIn)
+    return token
 
 }
 

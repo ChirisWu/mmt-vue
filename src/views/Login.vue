@@ -20,6 +20,14 @@ import LoginForm from "@/components/login/LoginForm";
         name: "Login",
       components: {
           LoginForm
+      },
+      data() {
+          return {
+            loading: false
+          }
+      },
+      methods: {
+
       }
     }
 </script>

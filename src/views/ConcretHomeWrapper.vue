@@ -11,34 +11,39 @@
           <el-menu-item index="4" class="m_header_menu_item">投稿建议</el-menu-item>
         </el-menu>
         <div class="m_header_user_opt">
-            <span class="m_header_user_search">
+          <el-row class="mmt_header_opt" :gutter="40">
+            <el-col :span="7" style="margin: auto 0">
               <el-input size="small"  placeholder="搜索用戶/视频/音频">
-              <template #suffix>
-                <i class="el-input__icon el-icon-search"></i>
-              </template>
-              </el-input>
-            </span>
-          <span class="m_header_button_wrapper">
-            <el-button  round size="small" @click="handleGoCreation">创作中心</el-button>
-          </span>
-
-          <div class="m_header_avatar_wrapper">
-              <el-dropdown>
-                <span >
-                 <el-avatar size="46" style="margin-top: 50%" >user</el-avatar>
-                </span>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item icon="el-icon-plus">创作</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-setting">设置</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-chat-dot-round">消息</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-help">关于</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-circle-check">退出</el-dropdown-item>
-                  </el-dropdown-menu>
+                <template #suffix>
+                  <i class="el-input__icon el-icon-search"></i>
                 </template>
-              </el-dropdown>
-            <span style="margin-left: 40px;"> <router-link to="/login">登 录</router-link></span> | <span><router-link to="/">注 册</router-link></span>
-          </div>
+              </el-input>
+            </el-col>
+            <el-col :span="11" style="margin: auto 0">
+              <el-button   round size="small" @click="handleGoCreation">创作中心</el-button>
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <el-dropdown>
+                <span >
+                 <el-avatar :size="46" style="margin-top: 44%" :src="user_avatar">user</el-avatar>
+                </span>
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <el-dropdown-item icon="el-icon-plus">创作</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-setting">设置</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-chat-dot-round">消息</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-help">关于</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-circle-check">退出</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </template>
+                </el-dropdown>
+              </div>
+            </el-col>
+            <el-col :span="3" style="position: relative">
+                <div v-if="!is_sign_in" style="position: absolute; bottom: 0"> <span> <router-link to="/login">登 录</router-link></span> | <span><router-link to="/">注 册</router-link></span></div>
+            </el-col>
+          </el-row>
         </div>
       </div>
     </div>
@@ -54,7 +59,10 @@ import { goCreation } from '@/router/userHomePage/userPageRoutes'
 export default {
   name: "ConcretHomeWrapper",
   data() {
-    return {}
+    return {
+      user_avatar: this.$store.getters.cu_avatar,
+      is_sign_in: this.$store.getters.is_sign
+    }
   },
   computed: {},
   methods: {
@@ -62,6 +70,8 @@ export default {
       goCreation(this.$router)
     }
   },
+  mounted() {
+  }
 }
 </script>
 
@@ -84,46 +94,15 @@ export default {
       width: 80%;
       height: 100%;
       margin: 0 auto;
-
-      .m_header_user_opt {
-        width: 40%;
-        height: 100%;
-        float: right;
-        position: relative;
-        top: 0;
-        .m_header_user_search{
-          width: 200px;
-          height: 100%;
-          .el-input{
-            width: 170px;
-            margin-top: 20px;
-          }
-        }
-        .m_header_button_wrapper{
-          margin-left: 46px;
-          .el-button{
-            background: none;
-            color: rgb(255,255,255);
-            border: solid 1px slategrey;
-          }
-          .el-button:hover{
-            border: solid 1px rgb(255, 255, 255);
-          }
-        }
-        .m_header_avatar_wrapper{
-          padding: 0;
-          height: 100%;
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          text-align: center;
-          a{
-            color: #cecccc;
-            text-decoration: none;
-            font-size: 13px;
-          }
+      .mmt_header_opt{
+        text-align: right;
+        a{
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 13px;
         }
       }
+
 
       .m_header_menu {
         background: none;

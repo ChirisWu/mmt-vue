@@ -1,6 +1,11 @@
 <template>
   <div class="mmt_login_form_wrapper">
-    <el-form class="mmt_login_form" :model="loginParam" ref="loginParam" :rules="rules">
+    <el-form class="mmt_login_form" :model="loginParam" ref="loginParam" :rules="rules"
+             v-loading="loading"
+             element-loading-text="登陆中请稍后"
+             element-loading-background="rgba(0,0,0,0.4)"
+             element-loading-spinner="el-icon-loading"
+    >
       <el-form-item style="text-align: center">
         <el-avatar :size="80" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
       </el-form-item>
@@ -72,6 +77,7 @@ export default {
           {validator: validatePassword, trigger: 'blur'}
         ]
       },
+      loading: false,
 
     }
   },
@@ -79,22 +85,27 @@ export default {
     doLogin() {
       this.$refs.loginParam.validate(valid => {
         if (valid){
+          this.loading = true
           accountService.access_token(this.loginParam.username, this.loginParam.password).then(res => {
             console.log(res)
             if (res.data.status.statusCode === 200){
               // 登录成功
                 // store token
               let data = res.data.data
-              set_access_token(data.token, data.expiresIn)
+              set_access_token(data.tokenHead + ' ' + data.token, data.expiresIn)
               set_refresh_token(data.refreshToken)
+              localStorage.setItem("username", this.loginParam.username)
+              this.loading = false
               this.$router.push('/user')
             }else{
               this.$message.info(res.data.status.msg)
             }
-
+            this.loading = false
           }).catch(e =>{
-            this.$message.error(e)
-            console.log(e)
+            this.loading = false
+            this.$message.error(e.message)
+            console.log(e.message)
+
           })
         }else{
           return false
@@ -115,8 +126,7 @@ export default {
 
 <style lang="less" scoped>
 .mmt_login_form {
-  padding: 40px 40px 0;
-  margin-top: 40px;
+  padding: 40px;
 
   .el-input {
     margin: 7px 0;

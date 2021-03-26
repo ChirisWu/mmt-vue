@@ -32,24 +32,13 @@ accountService.refresh_token =  (refreshToken) =>{
         grant_type: 'refresh_token',
         refresh_token: refreshToken
     })
-    return new Promise(resolve => {
-       return http({
-           url: LOGIN_API,
-           data: requestParam,
-           method: 'post'
-       }).then(res => {
-           if (res.data.status.statusCode === 200){
-               resolve({
-                   access_token: res.data.data.token,
-                   expiresIn: res.data.data.expiresIn
-               })
-           }else{
-               resolve(undefined)
-           }
-       }).catch(e => {
-           console.log(e)
-       })
-    })
+    let request = new XMLHttpRequest()
+    request.open("POST", http.BASE_URL + LOGIN_API, false)
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+    request.send(requestParam)
+    let response = request.responseText
+    response = JSON.parse(response)
+    return response.data
 }
 
 export default accountService

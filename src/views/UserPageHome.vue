@@ -2,7 +2,7 @@
   <div class="user_page">
     <div class="m_user_infos">
         <div class="m_avatar_wrapper">
-            <img src="https://p1.music.126.net/sEYSA9mcPF9UgP7szzgtdQ==/109951164314671311.jpg?param=180y180">
+            <img :src="userInfo.avatarUrl">
         </div>
       <div class="m_user_basic_info_wrapper">
           <div class="m_user_name_wrapper">
@@ -64,35 +64,32 @@
           </div></el-col>
           <el-col :span="6"><div class="m_user_piece_card">
             <img src="../assets/home/birds.png">
-            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.sharesCount}}篇分享</h3></div>
+            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.sharesCount}}篇轻语</h3></div>
           </div></el-col>
         </el-row>
       </div>
     </div>
-    <el-button @click="refreshToken">
-      refresh
-    </el-button>
   </div>
 </template>
 
 <script>
 import {get_access_token} from "@/util/auth";
-
+import userService from '@/api/user'
 export default {
   name: "UserPageHome",
   data(){
     return {
       userInfo: {
         userId: 0,
-        username: 'Chiris_wuuuuuuuu',
+        username: '',
         avatarUrl: '',
-        personalUrl: 'https:github.com',
+        personalUrl: '',
         extId: 2,
-        genderStr: '女',
+        genderStr: '',
         userExtInfos:{
-          birthday: '2020-3-16',
-          location: '深圳',
-          work: 'coder',
+          birthday: '',
+          location: '',
+          work: '',
           gender: 0,
 
         },
@@ -115,12 +112,20 @@ export default {
     }
   },
   methods: {
-    async refreshToken() {
-      console.log('loginForm mouted')
-      let access = await get_access_token()
-      console.log(access)
-
+  },
+  mounted() {
+    let currentUser = localStorage.getItem("username")
+    if (currentUser){
+      userService.get_user_page(currentUser).then(res => {
+        if (res.data.status.statusCode === 200){
+          this.userInfo = res.data.data
+          this.$store.commit('setCUAvatar', res.data.data.avatarUrl)
+        }
+      }).catch( err => {
+        console.log('get user page error' + err)
+      })
     }
+
   }
 }
 </script>
