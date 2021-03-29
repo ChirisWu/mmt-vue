@@ -1,19 +1,20 @@
 import { createStore } from 'vuex'
 import {get_refresh_token} from "@/util/auth";
+import StoreConst from "@/util/const";
 
 export default createStore({
   state: {
     // userInfo
-    current_username: localStorage.getItem("username"),
+    current_username: localStorage.getItem(StoreConst.localStoreUsernameKey),
     is_sign_in: get_refresh_token() !== undefined,
-    current_u_avatar: localStorage.getItem("cu_avatar")
+    current_u_avatar: localStorage.getItem(StoreConst.localStoreUseravatarKey)
   },
   mutations: {
     setCurrentUsername: (state, uname) => {
-      localStorage.setItem("username", uname)
+      localStorage.setItem(StoreConst.localStoreUsernameKey, uname)
     },
     setCUAvatar: (state, value) => {
-      localStorage.setItem("cu_avatar", value)
+      localStorage.setItem(StoreConst.localStoreUseravatarKey, value)
     }
   },
   getters: {

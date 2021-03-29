@@ -1,6 +1,7 @@
 <template>
     <div class="mmt_drag_upload">
         <el-upload
+                ref="dragUpload"
                 drag
                 :before-upload="beforeUpload"
                 accept="video/mp4"
@@ -10,7 +11,7 @@
                 :data="ossUploadParam"
                 multiple>
             <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__text">将文件拖到此处自动上传，或<em>点击上传</em></div>
             <template #tip>
                 <div class="el-upload__tip">
                     只能上传mp4文件，且不能超过400MB
@@ -41,15 +42,6 @@
             }
         },
       computed: {
-        // uploadError: {
-        //   get() {
-        //     return this.errorTip
-        //   },
-        //   set(errorTip) {
-        //     this.errorTip.show = errorTip.show
-        //     this.errorTip.text = errorTip.text
-        //   }
-        // }
       },
         methods: {
             beforeUpload(file) {
@@ -85,11 +77,11 @@
               this.$notify.success({
                 title: '上传成功',
                 message: file.name + "已经上传到服务器",
-                position: 'top-left'
+                position: 'top-left',
+                offset: 200
               })
             let videoUrl = this.uploadUrl + '/' + this.ossUploadParam.dir + '/' + file.name
             this.$emit('videoUrl',videoUrl )
-            console.log(file.name)
           },
           handleError(err, file) {
             console.log('上传失败')
@@ -101,8 +93,11 @@
                 title: '文件上传异常',
                 message: msg,
                 position: 'top-left',
-                offset: 250
+                offset: 200
               })
+          },
+          uploadFile(){
+             this.$refs.dragUpload.submit()
           }
 
         },

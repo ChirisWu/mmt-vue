@@ -46,6 +46,11 @@ const routes = [
         path: '/create_moment',
         name: 'CreateMoment',
         component: () => import('@/components/userPage/MomentCreation')
+      },
+      {
+        path: '/va',
+        name: 'Va',
+        component: () => import('@/views/UserMediaList')
       }
 
     ]

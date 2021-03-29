@@ -50,8 +50,8 @@
     <div class="m_user_statistic_wrapper">
       <div class="m_user_piece_list">
         <el-row :gutter="20">
-          <el-col :span="6"><div class="m_user_piece_card">
-            <img src="../assets/home/video.jpg">
+          <el-col :span="6"><div class="m_user_piece_card" @click="goVideList">
+            <img src="../assets/home/video.jpg" >
             <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.videoCount}}个视屏</h3></div>
           </div></el-col>
           <el-col :span="6"><div class="m_user_piece_card">
@@ -75,6 +75,8 @@
 <script>
 import {get_access_token} from "@/util/auth";
 import userService from '@/api/user'
+import StoreConst from "@/util/const";
+import momentService from "@/api/moment";
 export default {
   name: "UserPageHome",
   data(){
@@ -112,6 +114,15 @@ export default {
     }
   },
   methods: {
+    goVideList(){
+      this.$router.push({
+        path: '/va',
+        query: {
+          username: 'chiris',
+          type: momentService.VIDEO_TYPE
+        }
+      })
+    }
   },
   mounted() {
     let currentUser = localStorage.getItem("username")
