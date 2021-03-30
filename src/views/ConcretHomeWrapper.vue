@@ -12,14 +12,14 @@
         </el-menu>
         <div class="m_header_user_opt">
           <el-row class="mmt_header_opt" :gutter="40">
-            <el-col :span="7" style="margin: auto 0">
+            <el-col :span="8" style="margin: auto 0">
               <el-input size="small"  placeholder="搜索用戶/视频/音频">
                 <template #suffix>
                   <i class="el-input__icon el-icon-search"></i>
                 </template>
               </el-input>
             </el-col>
-            <el-col :span="11" style="margin: auto 0">
+            <el-col :span="9" style="margin: auto 0">
               <el-button   round size="small" @click="handleGoCreation">创作中心</el-button>
             </el-col>
             <el-col :span="3">
@@ -34,14 +34,14 @@
                       <el-dropdown-item icon="el-icon-setting">设置</el-dropdown-item>
                       <el-dropdown-item icon="el-icon-chat-dot-round">消息</el-dropdown-item>
                       <el-dropdown-item icon="el-icon-help">关于</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-circle-check">退出</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-circle-check" @click="logout">退出</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
               </div>
             </el-col>
-            <el-col :span="3" style="position: relative">
-                <div v-if="!is_sign_in" style="position: absolute; bottom: 0"> <span> <router-link to="/login">登 录</router-link></span> | <span><router-link to="/">注 册</router-link></span></div>
+            <el-col :span="4" style="position: relative">
+                <div v-if="!is_sign_in" style="position: absolute; bottom: 7px"> <span> <router-link to="/login">登 录</router-link></span> | <span><router-link to="/register">注 册</router-link></span></div>
             </el-col>
           </el-row>
         </div>
@@ -56,6 +56,7 @@
 
 <script>
 import { goCreation } from '@/router/userHomePage/userPageRoutes'
+import { auth_logout } from "../util/auth";
 export default {
   name: "ConcretHomeWrapper",
   data() {
@@ -68,7 +69,21 @@ export default {
   methods: {
     handleGoCreation() {
       goCreation(this.$router)
+    },
+    logout(){
+      this.$confirm('是否要退出登录？', '', {
+        confirmButtonText: '退出',
+        cancelButtonText: '取消',
+        iconClass: 'el-icon-circle-close'
+      }).then(() => {
+        if (!this.$store.is_sign_in){
+          auth_logout()
+        }
+        this.$router.push('/login')
+      }).catch(() => {
+      });
     }
+
   },
   mounted() {
   }

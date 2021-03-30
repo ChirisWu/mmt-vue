@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home_header">
-        <img src="../assets/home/city.jpg">
+        <img src="../assets/home/header.png">
     </div>
       <div class="home_list_wrapper">
         <el-row>

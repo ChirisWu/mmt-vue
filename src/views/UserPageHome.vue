@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import {get_access_token} from "@/util/auth";
 import userService from '@/api/user'
 export default {
   name: "UserPageHome",
@@ -191,10 +190,10 @@ export default {
   .m_user_statistic_wrapper{
     width: 100%;
     /*height: 400px;*/
-    padding-top: 60px;
+    padding-top: 30px;
     .m_user_piece_list{
       .m_user_piece_card{
-        height: 340px;
+        height: 300px;
         position: relative !important;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         img{

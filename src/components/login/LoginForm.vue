@@ -7,12 +7,14 @@
              element-loading-spinner="el-icon-loading"
     >
       <el-form-item style="text-align: center">
-        <el-avatar :size="80" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+        <el-avatar :size="80" :src="avatar">Login</el-avatar>
       </el-form-item>
       <el-form-item prop="username">
         <el-input
             v-model="loginParam.username"
-            placeholder="用户名或邮箱" prefix-icon="el-icon-user"></el-input>
+            placeholder="用户名或邮箱" prefix-icon="el-icon-user"
+            :blur="handleUnameBlur(loginParam.username)"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input
@@ -39,6 +41,7 @@
 import {validatePass, stripscript} from "@/util/validate";
 import accountService from '@/api/login'
 import {get_access_token, set_access_token, set_refresh_token} from "@/util/auth";
+import {LAST_LOGIN_AVATAR, LAST_LOGIN_UNAME} from "../../util/auth";
 
 export default {
   name: "LoginForm",
@@ -67,8 +70,10 @@ export default {
     return {
       loginParam: {
         username: 'chiris',
-        password: '196980wwx'
+        password: '196980wwx',
       },
+      last_login_u: localStorage.getItem(LAST_LOGIN_UNAME),
+      login_avatar: '',
       rules: {
         username: [
           {validator: validateUsername, trigger: 'blur'}
@@ -81,16 +86,23 @@ export default {
 
     }
   },
+  computed: {
+    avatar:{
+      get() {
+        return this.login_avatar
+      },
+      set(value){
+        this.login_avatar = value
+      }
+    }
+  },
   methods: {
     doLogin() {
       this.$refs.loginParam.validate(valid => {
         if (valid){
           this.loading = true
           accountService.access_token(this.loginParam.username, this.loginParam.password).then(res => {
-            console.log(res)
             if (res.data.status.statusCode === 200){
-              // 登录成功
-                // store token
               let data = res.data.data
               set_access_token(data.tokenHead + ' ' + data.token, data.expiresIn)
               set_refresh_token(data.refreshToken)
@@ -102,6 +114,8 @@ export default {
             }
             this.loading = false
           }).catch(e =>{
+            this.$message.error(e.message)
+            console.log(e)
             this.loading = false
             this.$message.error(e.message)
             console.log(e.message)
@@ -112,12 +126,19 @@ export default {
         }
       })
     },
+    handleUnameBlur(val){
+      console.log('last', this.last_login_u)
+
+      if (val === this.last_login_u){
+        this.avatar = localStorage.getItem(LAST_LOGIN_AVATAR)
+      }else{
+        this.avatar = ''
+      }
+    }
 
 
   },
   mounted() {
-    // this.refreshToken()
-
 
 
   }
@@ -126,8 +147,8 @@ export default {
 
 <style lang="less" scoped>
 .mmt_login_form {
+  padding: 40px 40px 0;
   padding: 40px;
-
   .el-input {
     margin: 7px 0;
   }
