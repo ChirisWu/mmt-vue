@@ -59,6 +59,7 @@ export function auth_logout() {
     localStorage.setItem(LAST_LOGIN_AVATAR, last_login_avatar)
     localStorage.removeItem('username')
     localStorage.removeItem('cu_avatar')
+    localStorage.removeItem("uid")
     remove_token()
 }
 

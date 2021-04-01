@@ -51,6 +51,11 @@ const routes = [
         path: '/va',
         name: 'Va',
         component: () => import('@/views/UserMediaList')
+      },
+      {
+        path: '/play',
+        name: 'Play',
+        component: () => import('@/views/VideoRadioPlayPage')
       }
 
     ]
@@ -82,6 +87,12 @@ const routes = [
     name: "DragUpload",
     component: () => import('@/components/upload/DragUpload')
   },
+
+  {
+    path: '/player',
+    name: 'Player',
+    component: () => import('@c/media/MmtVideoPlayer')
+  }
 
 
 

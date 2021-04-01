@@ -117,8 +117,8 @@ export default {
       this.$router.push({
         path: '/va',
         query: {
-          username: 'chiris',
-          type: momentService.VIDEO_TYPE
+          username: this.userInfo.username,
+          ud: this.userInfo.userId
         }
       })
     }
