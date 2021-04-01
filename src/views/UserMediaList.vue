@@ -63,7 +63,7 @@ export default {
   .mmt_user_media_list{
     padding: 30px;
     .mmt_user_video_card_wrapper{
-      height: 210px;
+      height: 180px;
       width: 16.667%;
       float: left;
     }

@@ -8,7 +8,7 @@
         <div class="mmt_video_upload_wrapper">
             <DragUpload @videoUrl="handleVideoUrl($event)" @videoTitle="handleVideoTitle($event)"/>
         </div>
-        <div class="mmt_video_text_wrapper">
+        <div class="mmt_video_text_wrapper" v-show="isUpload">
             <el-form label-height="100" :model="videoContent" ref="videoContent" class="mmt_video_form">
                 <el-form-item>
                     <label>MLife视屏标题</label>
@@ -18,7 +18,7 @@
                     <label>MLife视屏语</label>
                     <el-input id="video_text" type="textarea"
                               :autosize="{ minRows: 4, maxRows: 10}"
-                              v-model="videoContent.text"
+                              v-model="videoContent.description"
                               maxlength="500"
                               show-word-limit
                               style="initial-letter: inherit"></el-input>
@@ -50,7 +50,7 @@
                     <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" plain>发布</el-button>
+                    <el-button type="primary" plain @click="createVideo">发布</el-button>
                     <el-button type="info" plain>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -60,18 +60,25 @@
 
 <script>
     import DragUpload from "../upload/DragUpload";
+    import StoreConst from "../../util/const";
+    import momentService from "../../api/moment";
 
     export default {
         data() {
             return {
                 videoContent: {
                     title: '',
-                    text: '',
                     relativeUrl: '',
                     tags: ['原创', '视频'],
+                    sourceUrl:'',
+                    description: '',
+                    userId: 0,
+                    type: -1,
+                    relatedUrls: '',
                 },
                 inputVisible: false,
-                inputValue: ''
+                inputValue: '',
+                isUpload: false
             }
         },
         name: "VideoCreation",
@@ -80,7 +87,8 @@
         },
         methods: {
             handleVideoUrl(url) {
-                this.videoContent.text = url
+                this.videoContent.sourceUrl = url
+                this.isUpload = true
             },
             handleVideoTitle(title) {
                 this.videoContent.title = title
@@ -106,7 +114,35 @@
             },
 
             createVideo() {
-                
+                this.videoContent.userId = localStorage.getItem(StoreConst.localStoreUIdKey)
+                this.videoContent.type = momentService.VIDEO_TYPE
+                let re = /[,;、，。\s]/;
+                this.videoContent.relatedUrls = this.videoContent.relativeUrl.split(re)
+                this.videoContent.relatedUrls.filter(url => url === '')
+                momentService.createMediaMoment(this.videoContent).then(res=>{
+                    console.log(res)
+                    if (res.data.status.statusCode === 200){
+                        this.$notify.success({
+                            message: '视屏动态发布成功！',
+                            position: 'top-left',
+                            offset: 100
+                        })
+                    }else{
+                        this.$notify.error({
+                            title: '发布失败',
+                            message: this.data.status.msg,
+                            position: 'top-left',
+                            offset: 100
+                        })
+                    }
+                }).catch(err => {
+                    this.$notify.error({
+                        message: err.message,
+                        position: 'top-left',
+                        offset: 100
+
+                    })
+                })
             }
 
 

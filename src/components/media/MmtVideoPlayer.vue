@@ -1,12 +1,19 @@
 <template>
-  <div>
-      <img src="http://mmt-resource.oss-cn-hangzhou.aliyuncs.com/mmt_user_3/fffff.mp4?x-oss-process=video/snapshot,t_100,f_png,w_800,h_600"/>
-  </div>
+ <div class="mmt_video_player">
+   <video :src="videoUrl" controls>
+
+   </video>
+   <div class="mmt_video_player_opt">
+   </div>
+ </div>
 </template>
 
 <script>
 export default {
   name: "MmtVideoPlayer",
+    props: {
+      videoUrl: String
+    },
   data(){
     return {
 
@@ -22,6 +29,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  .mmt_video_player{
+    width: 100%;
+    height: 100%;
+    video{
+      height: 100%;
+      width: 100%;
+    }
+  }
 
 </style>
