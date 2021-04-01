@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 import accountService from "@/api/login";
-
 const access_token = 'access'
 const refresh_token = 'refresh'
 const refresh_token_expires = 7
@@ -47,6 +46,20 @@ export function get_refresh_token(){
 }
 
 export function remove_token(){
-    sessionStorage.removeItem(access_token)
+    Cookies.remove(access_token)
     Cookies.remove(refresh_token)
 }
+export const LAST_LOGIN_UNAME = 'last_login_u'
+export const LAST_LOGIN_AVATAR = 'last_avtar'
+export function auth_logout() {
+    let last_login_uname = localStorage.getItem('username')
+    let last_login_avatar = localStorage.getItem('cu_avatar')
+
+    localStorage.setItem(LAST_LOGIN_UNAME, last_login_uname)
+    localStorage.setItem(LAST_LOGIN_AVATAR, last_login_avatar)
+    localStorage.removeItem('username')
+    localStorage.removeItem('cu_avatar')
+    remove_token()
+}
+
+
