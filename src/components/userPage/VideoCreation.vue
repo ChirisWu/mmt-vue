@@ -114,7 +114,6 @@
             },
 
             createVideo() {
-                this.videoContent.userId = localStorage.getItem(StoreConst.localStoreUIdKey)
                 this.videoContent.type = momentService.VIDEO_TYPE
                 let re = /[,;、，。\s]/;
                 this.videoContent.relatedUrls = this.videoContent.relativeUrl.split(re)

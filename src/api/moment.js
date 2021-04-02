@@ -23,6 +23,12 @@ momentService.getUserMedia = (type, userId) => {
     })
 }
 
+momentService.getMomentDetailsById = id => {
+    return http({
+        url: BASE_URL + '/mediaDetails?mId=' + id,
+        method: 'get'
+    })
+}
 
 
 export default momentService
