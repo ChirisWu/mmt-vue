@@ -10,9 +10,10 @@
         <mmt-video-player :video-url="momentDetails.sourceUrl"/>
         <div class="mmt_player_footer">
           <div class="mmt_moment_infos">
+            <IconComment/> {{momentDetails.commentCount}}
           </div>
           <div class="mmt_moment_opt">
-            like it
+            <icon-heart/>
           </div>
         </div>
       </div>
@@ -52,10 +53,16 @@
 <script>
 import MmtVideoPlayer from "../components/media/MmtVideoPlayer";
 import momentService from "@/api/moment";
+import IconHeart from "@c/icons/IconHeart";
+import IconComment from "@c/icons/IconComment";
 
 export default {
   name: "VideoPlay",
-  components: {MmtVideoPlayer},
+  components: {
+    MmtVideoPlayer,
+    IconHeart,
+    IconComment
+  },
   data() {
     return {
       m_id: this.$route.query.m_id,
@@ -121,6 +128,7 @@ export default {
         display: flex;
         div{
           flex: 1;
+          margin-top: 10px;
         }
       }
     }

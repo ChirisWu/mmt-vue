@@ -35,8 +35,8 @@ import LoginForm from "@/components/login/LoginForm";
 <style lang="less" scoped>
     .mmt_login_wrapper{
         width: 100%;
-        height: 100%;
-        background: url('../assets/login/loginbg.jpg');
+        height: 90.88%;
+        background: url('../assets/login/lbg.jpg');
         background-size: cover;
         position: relative;
         padding-top: 5%;
@@ -62,6 +62,7 @@ import LoginForm from "@/components/login/LoginForm";
                         position: absolute;
                         bottom: 0;
                         margin: 0;
+                        color: #ffffff;
                     }
                 }
                 img{
