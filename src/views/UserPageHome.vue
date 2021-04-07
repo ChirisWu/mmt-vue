@@ -98,7 +98,7 @@ export default {
           concernCount: 0,
           fansCount: 0,
           id: 0,
-          lastActiveDatetime: "2021-03-17",
+          lastActiveDatetime: "",
           messageCount: 0,
           originalCount: 0,
           personalPageViews: 0,

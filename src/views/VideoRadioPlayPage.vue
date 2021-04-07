@@ -4,17 +4,30 @@
       <div class="mmt_play_page_header">
         <h4 style="margin: 0 0 5px">【{{momentDetails.title}}】</h4>
         <p style="font-size: 10px; padding-left: 4%">{{momentDetails.createDate}}</p>
-        <p>{{momentDetails.description}}</p>
+        <div class="mmt_moment_tags">
+          <el-tag effect="plain" v-for="(item, index) in momentDetails.tagsList">{{item}}</el-tag>
+        </div>
+        <p>&nbsp;&nbsp;&nbsp;{{momentDetails.description}}</p>
       </div>
       <div class="mmt_player_wrapper">
         <mmt-video-player :video-url="momentDetails.sourceUrl"/>
         <div class="mmt_player_footer">
           <div class="mmt_moment_infos">
-            <IconComment/> {{momentDetails.commentCount}}
+            <div class="info_items">
+              <IconPlay/> <p>{{momentDetails.views}}</p>
+            </div>
+            <div class="info_items">
+              <IconComment/> <p>{{momentDetails.praiseCount}}</p>
+            </div>
+            <div class="info_items">
+              <icon-heart :color="momentDetails.isPraised ? '#1296db' : '#bfbfbf' "/>
+              <p>{{momentDetails.praiseCount}}</p>
+            </div>
           </div>
           <div class="mmt_moment_opt">
-            <icon-heart/>
+
           </div>
+
         </div>
       </div>
       <div class="mmt_comment_wrapper">
@@ -55,13 +68,15 @@ import MmtVideoPlayer from "../components/media/MmtVideoPlayer";
 import momentService from "@/api/moment";
 import IconHeart from "@c/icons/IconHeart";
 import IconComment from "@c/icons/IconComment";
+import IconPlay from "../components/icons/IconPlay";
 
 export default {
   name: "VideoPlay",
   components: {
     MmtVideoPlayer,
     IconHeart,
-    IconComment
+    IconComment,
+    IconPlay
   },
   data() {
     return {
@@ -82,7 +97,8 @@ export default {
         tagsList: [],
         authorId: '',
         author	:	'',
-        authorAvatar	:	''
+        authorAvatar	:	'',
+        isPraised: true
 
         }
     }
@@ -118,14 +134,38 @@ export default {
       padding: 30px 20px 0 30px;
       p{
         font-size: 13px;
-        margin: 0 0 15px;
+        margin: 0 0 12px;
+      }
+      .mmt_moment_tags{
+        margin-bottom: 7px;
+        .el-tag{
+          margin-left: 10px;
+        }
+        .el-tag:first-child{
+          margin-left: 0;
+        }
       }
     }
 
     .mmt_player_wrapper {
-      height: 700px;
+      height: 600px;
       .mmt_player_footer{
         display: flex;
+        border-bottom: 2px solid rgb(213,213,213);
+
+        .mmt_moment_infos{
+          display: flex;
+          .info_items{
+            display: flex;
+            flex: 1;
+            p{
+              height: 18px;
+              padding: 9px 0;
+              margin: 0 0 0 7px;
+            }
+
+          }
+        }
         div{
           flex: 1;
           margin-top: 10px;
@@ -135,7 +175,6 @@ export default {
 
     .mmt_comment_wrapper {
       height: 400px;
-      background-color: #d2a4a4;
     }
   }
 
@@ -149,10 +188,7 @@ export default {
 
       .mmt_author_avatar {
         flex: 1;
-        position: relative;
         .el-avatar{
-          position:absolute;
-          bottom: 0;
 
         }
       }
