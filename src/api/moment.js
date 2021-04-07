@@ -30,5 +30,12 @@ momentService.getMomentDetailsById = id => {
     })
 }
 
+momentService.delete = id => {
+    return http({
+        url: BASE_URL + '/delete/' + id,
+        method: 'get'
+    })
+}
+
 
 export default momentService

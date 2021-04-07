@@ -7,6 +7,16 @@ import store from './store'
 import Notification from "element-plus"
 
 
+const app = createApp(App)
+app.use(store)
+    .use(router)
+    .use(ElementPlus)
+    .use(Notification)
+    .mount('#app')
+
+
+
+
 
 Date.prototype.format = function(fmt) {
     var o = {
@@ -28,6 +38,3 @@ Date.prototype.format = function(fmt) {
     }
     return fmt;
 }
-
-
-createApp(App).use(store).use(router).use(ElementPlus).use(Notification).mount('#app')

@@ -2,14 +2,22 @@
   <div class="mmt_play_page">
     <div class="mmt_player_content">
       <div class="mmt_play_page_header">
-        <h4>【{{momentDetails.title}}】</h4>
+        <h4 style="margin: 0 0 5px">【{{momentDetails.title}}】</h4>
+        <p style="font-size: 10px; padding-left: 4%">{{momentDetails.createDate}}</p>
         <p>{{momentDetails.description}}</p>
       </div>
       <div class="mmt_player_wrapper">
         <mmt-video-player :video-url="momentDetails.sourceUrl"/>
+        <div class="mmt_player_footer">
+          <div class="mmt_moment_infos">
+          </div>
+          <div class="mmt_moment_opt">
+            like it
+          </div>
+        </div>
       </div>
       <div class="mmt_comment_wrapper">
-        评论区
+
       </div>
 
     </div>
@@ -86,7 +94,6 @@ export default {
   },
   mounted() {
     this.getMomentById()
-    console.log(this.momentDetails)
   }
 }
 </script>
@@ -103,13 +110,19 @@ export default {
     .mmt_play_page_header{
       padding: 30px 20px 0 30px;
       p{
-        font-size: 14px;
+        font-size: 13px;
         margin: 0 0 15px;
       }
     }
 
     .mmt_player_wrapper {
-      height: 500px;
+      height: 700px;
+      .mmt_player_footer{
+        display: flex;
+        div{
+          flex: 1;
+        }
+      }
     }
 
     .mmt_comment_wrapper {
@@ -128,6 +141,12 @@ export default {
 
       .mmt_author_avatar {
         flex: 1;
+        position: relative;
+        .el-avatar{
+          position:absolute;
+          bottom: 0;
+
+        }
       }
 
       .mmt_author_opt {

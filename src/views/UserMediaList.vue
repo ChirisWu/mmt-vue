@@ -4,7 +4,7 @@
         <h3>{{username}}的视频({{userVideos.length}})</h3>
         <div class="mmt_user_media_opt">
           <el-button plain size="small" round type="primary" @click="enableDelete">管 理</el-button>
-          <el-button plain size="small" round type="success" @click="disableDelete">完 成</el-button>
+          <el-button plain size="small" round type="success" @click="disableDelete" v-if="deleteEnabled">完 成</el-button>
         </div>
       </div>
       <div class="mmt_user_videos_wrapper" >
@@ -78,15 +78,26 @@ export default {
         cancelButtonText: '取消',
         iconClass: 'el-icon-delete'
       }).then(() => {
-        this.$alert('已删除', {
-          type: 'success',
-          confirmButtonText: '关闭'
+        momentService.delete(id).then(() => {
+          this.deleteVideo(id)
+          this.$alert('已删除', {
+            type: 'success',
+            confirmButtonText: '关闭'
+          })
         })
       })
     },
     disableDelete(){
       this.deleteEnabled = false
-    }
+    },
+    deleteVideo(id){
+      for (let i = 0; i < this.userVideos.length; i++){
+        if (this.userVideos[i].id === id){
+          this.userVideos.splice(i, 1)
+          break;
+        }
+      }
+    },
   },
   mounted() {
     this.getUserVideos()
@@ -134,7 +145,7 @@ export default {
     }
     .mmt_user_videos_wrapper{
       width: 100%;
-      height: 1200px;
+      height: 1024px;
     }
     .mmt_user_video_card_wrapper:hover{
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

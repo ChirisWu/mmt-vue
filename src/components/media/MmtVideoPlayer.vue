@@ -3,8 +3,6 @@
    <video :src="videoUrl" controls>
 
    </video>
-   <div class="mmt_video_player_opt">
-   </div>
  </div>
 </template>
 
@@ -32,7 +30,7 @@ export default {
 <style lang="less" scoped>
   .mmt_video_player{
     width: 100%;
-    height: 100%;
+    height: 90%;
     video{
       height: 100%;
       width: 100%;
