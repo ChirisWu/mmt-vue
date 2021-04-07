@@ -31,7 +31,14 @@
         </div>
       </div>
       <div class="mmt_comment_wrapper">
-
+        <el-row :gutter="20">
+          <el-col :span="21">
+            <el-input placeholder="发表你的精彩评论"></el-input>
+          </el-col>
+          <el-col :span="3">
+            <el-button>提交</el-button>
+          </el-col>
+        </el-row>
       </div>
 
     </div>
@@ -99,8 +106,12 @@ export default {
         author	:	'',
         authorAvatar	:	'',
         isPraised: true
-
-        }
+        },
+      commentParam: {
+        comment: '',
+        to: '',
+        from: ''
+      }
     }
   },
   methods: {
@@ -175,6 +186,7 @@ export default {
 
     .mmt_comment_wrapper {
       height: 400px;
+      padding-top: 20px;
     }
   }
 
