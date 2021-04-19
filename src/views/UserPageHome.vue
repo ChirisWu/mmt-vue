@@ -2,7 +2,8 @@
   <div class="user_page">
     <div class="m_user_infos">
         <div class="m_avatar_wrapper">
-            <img :src="userInfo.avatarUrl">
+          <el-image :src="userInfo.avatarUrl">
+          </el-image>
         </div>
       <div class="m_user_basic_info_wrapper">
           <div class="m_user_name_wrapper">
@@ -158,6 +159,12 @@ export default {
       height: 100%;
       float: left;
       img{
+        width: 218px;
+        height: 218px;
+        padding: 3px;
+        border: 1px solid rgb(213,213,213);
+      }
+      .el-image{
         width: 218px;
         height: 218px;
         padding: 3px;

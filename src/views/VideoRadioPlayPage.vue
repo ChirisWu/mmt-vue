@@ -56,15 +56,10 @@
       </div>
 
       <div class="mmt_author_other_moment">
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
-        <div class="mmt_other_moment_card"></div>
+        <div class="mmt_other_moment_card" v-for="(item, index) in recommendMedias" :class="item.id === mId ? 'select' : ''">
+          <video-card :video-vo="item" @click="publishRouteChangeEvent(item.id)"/>
+        </div>
+
       </div>
     </div>
   </div>
@@ -76,6 +71,7 @@ import momentService from "@/api/moment";
 import IconHeart from "@c/icons/IconHeart";
 import IconComment from "@c/icons/IconComment";
 import IconPlay from "../components/icons/IconPlay";
+import VideoCard from "@c/media/VideoCard";
 
 export default {
   name: "VideoPlay",
@@ -83,11 +79,12 @@ export default {
     MmtVideoPlayer,
     IconHeart,
     IconComment,
-    IconPlay
+    IconPlay,
+    VideoCard,
   },
   data() {
     return {
-      m_id: this.$route.query.m_id,
+      m_id: this.$route.params.id,
       url: 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com/test/callback/fffff.mp4',
       momentDetails: {
         momentId	:	9,
@@ -107,10 +104,30 @@ export default {
         authorAvatar	:	'',
         isPraised: true
         },
+      recommendMedias: [
+        {
+          createDateTime: '',
+          id: -1,
+          sourceUrl: '',
+          title: '',
+          userId: -1,
+          views: 0
+        }
+      ],
       commentParam: {
         comment: '',
         to: '',
         from: ''
+      },
+    }
+  },
+  computed: {
+    mId: {
+      get() {
+        return this.m_id
+      },
+      set(value) {
+        this.m_id = value
       }
     }
   },
@@ -121,11 +138,29 @@ export default {
         if (res.data.status.statusCode === 200){
           this.momentDetails = res.data.data
         }
+        this.getRecommendOfPlayPage()
       }).catch(err => {
         this.$message.error(err.message)
       })
+    },
+    getRecommendOfPlayPage(){
+      momentService.getRecommendOfPlayePage(1, this.momentDetails.authorId)
+      .then(res => {
+        if (res.data.status.statusCode === 200){
+          this.recommendMedias = res.data.data
+        }
+      })
+    },
+    publishRouteChangeEvent(id) {
+      this.mId = id
     }
   },
+  watch: {
+    mId() {
+      this.getMomentById()
+    }
+  },
+
   mounted() {
     this.getMomentById()
   }
@@ -221,6 +256,10 @@ export default {
       .mmt_other_moment_card {
         height: 180px;
         border: 1px solid silver;
+        margin-top: 7px;
+      }
+      .select{
+        border: #409EFF solid 1px;
       }
     }
   }

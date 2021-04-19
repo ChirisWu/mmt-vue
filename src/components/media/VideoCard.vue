@@ -37,12 +37,14 @@ export default {
      return videoUrl + '?x-oss-process=video/snapshot,t_100,f_png,w_192,h_126'
    },
     goVideoPlayPage(){
+     let id = this.videoVo.id
       this.$router.push({
-        path: '/play',
-        query: {
-          m_id: this.videoVo.id
+        name: 'Play',
+        params: {
+          id: id
         }
       })
+
     }
   }
 

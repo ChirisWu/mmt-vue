@@ -36,6 +36,12 @@ momentService.delete = id => {
         method: 'get'
     })
 }
+momentService.getRecommendOfPlayePage = (type, userId) => {
+    return http({
+        url: BASE_URL + '/recommendOfPlayPage?type=' + type + '&userId=' + userId,
+        method: 'get'
+    })
+}
 
 
 export default momentService

@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {get_access_token} from "@/util/auth";
+import {auth_logout, get_access_token} from "@/util/auth";
+import {ElMessageBox} from "element-plus";
 
 const http =axios.create({
     baseURL: '/api',
@@ -8,7 +9,10 @@ const http =axios.create({
 http.BASE_URL = '/api'
 http.defaults.withCredentials = false
 http.interceptors.request.use(config => {
-    config.headers.Authorization = get_access_token()
+    let token = get_access_token()
+    if (token !== undefined){
+        config.headers.Authorization = token
+    }
     return config
 },err => {
     console.log(err)
