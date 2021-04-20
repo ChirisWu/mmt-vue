@@ -17,7 +17,7 @@
               <IconPlay/> <p>{{momentDetails.views}}</p>
             </div>
             <div class="info_items">
-              <IconComment/> <p>{{momentDetails.praiseCount}}</p>
+              <IconComment/> <p>{{momentDetails.commentCount}}</p>
             </div>
             <div class="info_items">
               <icon-heart :color="momentDetails.isPraised ? '#1296db' : '#bfbfbf' "/>
@@ -33,10 +33,10 @@
       <div class="mmt_comment_wrapper">
         <el-row :gutter="20">
           <el-col :span="21">
-            <el-input placeholder="发表你的精彩评论"></el-input>
+            <el-input v-model="commentParam.commentContent" placeholder="发表你的精彩评论"></el-input>
           </el-col>
           <el-col :span="3">
-            <el-button>提交</el-button>
+            <el-button @click="createLevel1Comment">提交</el-button>
           </el-col>
         </el-row>
       </div>
@@ -59,7 +59,6 @@
         <div class="mmt_other_moment_card" v-for="(item, index) in recommendMedias" :class="item.id === mId ? 'select' : ''">
           <video-card :video-vo="item" @click="publishRouteChangeEvent(item.id)"/>
         </div>
-
       </div>
     </div>
   </div>
@@ -72,6 +71,7 @@ import IconHeart from "@c/icons/IconHeart";
 import IconComment from "@c/icons/IconComment";
 import IconPlay from "../components/icons/IconPlay";
 import VideoCard from "@c/media/VideoCard";
+import commentService from "@/api/comment";
 
 export default {
   name: "VideoPlay",
@@ -115,9 +115,13 @@ export default {
         }
       ],
       commentParam: {
-        comment: '',
-        to: '',
-        from: ''
+        momentId: -99,
+        commentContent: '',
+        level: -11,
+        momentUserId: -9,
+        level1UserId: -1,
+        parentCommentId: -1
+
       },
     }
   },
@@ -132,9 +136,9 @@ export default {
     }
   },
   methods: {
+
     getMomentById(){
       momentService.getMomentDetailsById(this.m_id).then(res => {
-        console.log(res)
         if (res.data.status.statusCode === 200){
           this.momentDetails = res.data.data
         }
@@ -143,17 +147,49 @@ export default {
         this.$message.error(err.message)
       })
     },
+
     getRecommendOfPlayPage(){
       momentService.getRecommendOfPlayePage(1, this.momentDetails.authorId)
       .then(res => {
         if (res.data.status.statusCode === 200){
           this.recommendMedias = res.data.data
+        }else{
+          console.log(res.data.status.msg)
         }
       })
     },
     publishRouteChangeEvent(id) {
       this.mId = id
+    },
+
+
+    createLevel1Comment() {
+      this.commentParam.commentContent = this.commentParam.commentContent.replaceAll(' ', '')
+      if (this.commentParam.commentContent === ''){
+        this.$alert('评论内容不能为空','', {
+          confirmButtonText: '确定',
+          iconClass: 'el-icon-close'
+        })
+        return
+      }
+      this.commentParam.level = 1
+      this.commentParam.momentId = this.momentDetails.momentId
+      this.commentParam.momentUserId = this.momentDetails.authorId
+      commentService.create(this.commentParam).then(res => {
+        if (res.status.statusCode !== 200){
+          console.log(res.status)
+        }
+      }).catch(err => {
+        this.$message.error({
+          message: '网络错误'
+        })
+      })
+
     }
+
+
+
+
   },
   watch: {
     mId() {
