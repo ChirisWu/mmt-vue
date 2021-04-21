@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import {goCreationTypes} from "../../router/userHomePage/userPageRoutes";
+    import {goCreationTypes} from "@/router/userHomePage/userPageRoutes";
 
     export default {
         name: "Creation",

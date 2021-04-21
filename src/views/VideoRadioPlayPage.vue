@@ -20,7 +20,7 @@
               <IconComment/> <p>{{momentDetails.commentCount}}</p>
             </div>
             <div class="info_items">
-              <icon-heart :color="momentDetails.isPraised ? '#1296db' : '#bfbfbf' "/>
+              <icon-heart :color="momentDetails.isPraised ? '#1296db' : '#bfbfbf' " @click="praiseMoment"/>
               <p>{{momentDetails.praiseCount}}</p>
             </div>
           </div>
@@ -39,6 +39,7 @@
             <el-button @click="createLevel1Comment">提交</el-button>
           </el-col>
         </el-row>
+          <mmt-message-box ref="msgbox" msg="添加了一条评论"/>
       </div>
 
     </div>
@@ -72,6 +73,8 @@ import IconComment from "@c/icons/IconComment";
 import IconPlay from "../components/icons/IconPlay";
 import VideoCard from "@c/media/VideoCard";
 import commentService from "@/api/comment";
+import StatisticService from "@/api/statistic";
+import MmtMessageBox from "@c/common/MmtMessageBox";
 
 export default {
   name: "VideoPlay",
@@ -81,6 +84,8 @@ export default {
     IconComment,
     IconPlay,
     VideoCard,
+    MmtMessageBox
+
   },
   data() {
     return {
@@ -141,6 +146,7 @@ export default {
       momentService.getMomentDetailsById(this.m_id).then(res => {
         if (res.data.status.statusCode === 200){
           this.momentDetails = res.data.data
+          this.hasPraised()
         }
         this.getRecommendOfPlayPage()
       }).catch(err => {
@@ -161,23 +167,35 @@ export default {
     publishRouteChangeEvent(id) {
       this.mId = id
     },
+    hasPraised() {
+      StatisticService.hasPraise(this.mId)
+      .then(res => {
+        this.momentDetails.isPraised = res.data === 1
+      })
+    },
 
 
     createLevel1Comment() {
+
       this.commentParam.commentContent = this.commentParam.commentContent.replaceAll(' ', '')
       if (this.commentParam.commentContent === ''){
         this.$alert('评论内容不能为空','', {
           confirmButtonText: '确定',
           iconClass: 'el-icon-close'
         })
+
         return
       }
       this.commentParam.level = 1
       this.commentParam.momentId = this.momentDetails.momentId
       this.commentParam.momentUserId = this.momentDetails.authorId
       commentService.create(this.commentParam).then(res => {
-        if (res.status.statusCode !== 200){
-          console.log(res.status)
+        if (res.data.status.statusCode === 200){
+          this.$refs.msgbox.visible = true
+          this.momentDetails.commentCount += 1
+          this.commentParam.commentContent = ''
+        }else{
+          console.log(res.data.status)
         }
       }).catch(err => {
         this.$message.error({
@@ -185,8 +203,19 @@ export default {
         })
       })
 
-    }
+    },
 
+    praiseMoment() {
+      if (this.momentDetails.isPraised){
+        StatisticService.praiseCancel(this.mId, this.momentDetails.authorId)
+        this.momentDetails.isPraised = false
+        this.momentDetails.praiseCount -= 1
+      } else {
+        StatisticService.praise(this.mId, this.momentDetails.authorId)
+        this.momentDetails.isPraised = true
+        this.momentDetails.praiseCount += 1
+      }
+    }
 
 
 

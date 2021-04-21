@@ -41,4 +41,11 @@ accountService.refresh_token =  (refreshToken) =>{
     return response.data
 }
 
+accountService.getVerifyCode = (email) => {
+    return http({
+        url: '/pc/users/sendVerifyCode/' + email,
+        method: 'get'
+    })
+}
+
 export default accountService

@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import StatisticService from "@/api/statistic";
+
 export default {
  name: "VideoCard",
   data() {
@@ -37,7 +39,8 @@ export default {
      return videoUrl + '?x-oss-process=video/snapshot,t_100,f_png,w_192,h_126'
    },
     goVideoPlayPage(){
-     let id = this.videoVo.id
+      let id = this.videoVo.id
+      StatisticService.viewsIncr(id)
       this.$router.push({
         name: 'Play',
         params: {

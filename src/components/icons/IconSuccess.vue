@@ -1,0 +1,35 @@
+<template>
+  <svg t="1618992990874" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2685"
+       :width="height"
+       :height="height">
+    <path d="M512 85.333333c235.637333 0 426.666667 191.029333 426.666667 426.666667S747.637333 938.666667 512 938.666667 85.333333 747.637333 85.333333 512 276.362667 85.333333 512 85.333333z m182.613333 297.354667a32 32 0 0 0-45.258666 0.032L458.922667 573.44l-84.341334-83.989333a32 32 0 0 0-45.162666 45.344l106.986666 106.549333a32 32 0 0 0 45.226667-0.064l213.013333-213.333333a32 32 0 0 0-0.032-45.258667z" p-id="2686"
+          fill="#1afa29">
+
+    </path>
+  </svg>
+</template>
+
+<script>
+export default {
+name: "IconSuccess",
+  props: {
+    width: {
+      type: [Number, String],
+      default: 34
+    },
+    height: {
+      type: [Number, String],
+      default: 34
+    },
+    color: {
+      type: String,
+      default: '#bfbfbf'
+    }
+
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

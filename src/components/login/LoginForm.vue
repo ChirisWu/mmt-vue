@@ -61,7 +61,7 @@ export default {
       if (value === '') {
         callback(new Error("请输入密码"));
       } else if (validatePass(value)) {
-        callback(new Error("密码为6至20位数字+字母"));
+        callback(new Error("密码必须为6至20位数字+字母"));
       } else {
         callback();
       }

@@ -74,7 +74,7 @@ export default {
       this.$confirm('是否要退出登录？', '', {
         confirmButtonText: '退出',
         cancelButtonText: '取消',
-        iconClass: 'el-icon-circle-close'
+        iconClass: 'el-icon-close'
       }).then(() => {
         if (!this.$store.is_sign_in){
           auth_logout()

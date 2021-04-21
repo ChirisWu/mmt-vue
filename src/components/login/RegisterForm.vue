@@ -1,7 +1,7 @@
 <template>
   <div class="mmt_register_wrapper">
-      <el-form class="mmt_register_form" :model="registerParam" ref="registerParam">
-        <el-form-item>
+      <el-form class="mmt_register_form" :model="registerParam" ref="registerParam" :rules="rules">
+        <el-form-item prop="email">
           <el-input placeholder="邮箱" v-model="registerParam.email"></el-input>
         </el-form-item>
         <el-form-item v-if="false">
@@ -16,7 +16,7 @@
               ></el-input>
             </el-col>
             <el-col :span="12" class="mmt_register_verify_button">
-              <el-button type="primary" plain >获取验证码</el-button>
+              <el-button type="primary" plain @click="getVerifyCode" :disabled="verifyDisable">获取验证码</el-button>
             </el-col>
           </el-row>
         </el-form-item>
@@ -42,9 +42,21 @@
 </template>
 
 <script>
+import accountService from "@/api/login";
+import {validateEmail} from "@/util/validate";
+
 export default {
   name: "RegisterForm",
   data() {
+    const emailValidator = (rule, value, callback) => {
+        if(value === ''){
+          callback(new Error('需要先输入邮箱'))
+        } else if (validateEmail(value)){
+          callback(new Error('邮箱格式不对'))
+        } else {
+          callback()
+        }
+    }
     return {
       hasVerifyCode: false,
       registerParam: {
@@ -53,6 +65,11 @@ export default {
         password:'',
         passwordRpt: '',
         code: ''
+      },
+      rules: {
+        email: [
+          { validator: emailValidator, trigger: 'blur' }
+        ]
       }
     }
   },
@@ -64,15 +81,30 @@ export default {
       set(val){
         this.hasVerifyCode = val;
       }
+    },
+    verifyDisable: {
+      get() {
+        return this.registerParam.email === ''
+      }
+
     }
   },
   methods: {
     handleCodeBlur(code) {
-      if (code.length === 6){
-        this.isHasCode = true
-      }else{
-        this.isHasCode = false
+      this.isHasCode = code.length === 6;
+    },
+    getVerifyCode(){
+      if (this.registerParam.email === '' || validateEmail(this.registerParam.email)){
+        return
       }
+      accountService.getVerifyCode(this.registerParam.email).then(res => {
+        console.log(res)
+       if (res.status === 200){
+         this.$message.success('验证码已经发送到您的邮箱')
+       }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
