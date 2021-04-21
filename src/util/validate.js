@@ -31,5 +31,10 @@ export function validatePass(value) {
  */
 export function validateCode(value) {
     let reg = /^[0-9]{6}$/;
-    return !reg.test(value) ? true : false;
+    return !reg.test(value);
+}
+
+export function validateSpecialChar(value){
+    let reg = /[,.*/$%?\-^&()]/
+    return reg.test(value)
 }
