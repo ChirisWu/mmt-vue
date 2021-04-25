@@ -170,7 +170,7 @@ export default {
     hasPraised() {
       StatisticService.hasPraise(this.mId)
       .then(res => {
-        this.momentDetails.isPraised = res.data === 1
+        this.momentDetails.isPraised = res.data.data === 1
       })
     },
 

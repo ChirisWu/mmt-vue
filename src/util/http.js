@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {auth_logout, get_access_token} from "@/util/auth";
-import {ElMessageBox} from "element-plus";
+import {ElMessageBox, ElMessage} from "element-plus";
+import router from "@/router";
 
 const http =axios.create({
     baseURL: '/api',
@@ -19,5 +20,42 @@ http.interceptors.request.use(config => {
     Promise.reject(err)
 })
 
+http.interceptors.response.use(function (response) {
+    if (response.data === ""){
+        return response
+    }
+    let code = response.data.status.statusCode
 
+    switch (code){
+        case 200:
+            break;
+        case 401:
+            e401()
+             break;
+        case 404:
+            e404()
+            break;
+        default:
+            ElMessage.info(response.data.status.msg)
+            break;
+    }
+    return response
+}, function (error) {
+    ElMessage.error(error.message)
+    return Promise.reject(error);
+});
+function e401() {
+    console.log(401)
+    ElMessageBox.alert('认证失败，请重新登录', '登录提醒', {
+        confirmButtonText: '去登录',
+    }).then(r => {
+        router.push('/404')
+    })
+
+}
+function e404(){
+
+}
 export default http
+
+

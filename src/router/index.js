@@ -92,6 +92,26 @@ const routes = [
     path: '/player',
     name: 'Player',
     component: () => import('@c/media/MmtVideoPlayer')
+  },
+
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@v/error/404')
+  },
+
+
+
+
+
+
+
+
+
+
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/404'
   }
 
 

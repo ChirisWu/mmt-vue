@@ -7,7 +7,8 @@
           <el-button plain size="small" round type="success" @click="disableDelete" v-if="deleteEnabled">完 成</el-button>
         </div>
       </div>
-      <div class="mmt_user_videos_wrapper" >
+      <div class="mmt_user_videos_wrapper">
+        <el-empty description="这里竟然是空的！" v-if="userVideos.length === 0"/>
         <div class="mmt_user_video_card_wrapper" v-for="(item, index) in userVideos">
             <video-card :video-vo="item"/>
           <div class="mmt_video_delete" v-if="deleteEnabled" @click="deleteMedia(item.id, item.title)">
@@ -145,7 +146,7 @@ export default {
     }
     .mmt_user_videos_wrapper{
       width: 100%;
-      height: 1024px;
+      height: 999px;
     }
     .mmt_user_video_card_wrapper:hover{
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

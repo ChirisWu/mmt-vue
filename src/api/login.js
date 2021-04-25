@@ -48,4 +48,12 @@ accountService.getVerifyCode = (email) => {
     })
 }
 
+accountService.register = (data) => {
+    return http ({
+        url: '/pc/users/register',
+        method: 'post',
+        data: data
+    })
+}
+
 export default accountService

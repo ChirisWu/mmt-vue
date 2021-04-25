@@ -14,7 +14,7 @@ export function stripscript(str) {
  * 验证邮箱
  */
 export function validateEmail(value) {
-    let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z.]{2,10})$/;
     return !reg.test(value) ? true : false;
 }
 

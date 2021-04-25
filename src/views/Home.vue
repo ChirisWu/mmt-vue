@@ -78,7 +78,6 @@ export default {
     height: 100%;
   }
   .home_header{
-    background-color: azure;
     width: 70%;
     margin: 0 auto;
     height: 270px;
@@ -108,7 +107,6 @@ export default {
       width: 80%;
       margin: 30px auto;
       position: relative;
-      background-color: aliceblue;
 
       img{
         width: 100%;

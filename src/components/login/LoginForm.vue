@@ -19,7 +19,8 @@
       <el-form-item prop="password">
         <el-input
             v-model="loginParam.password"
-            placeholder="密码" prefix-icon="el-icon-lock" type="password" :show-password="true">
+            placeholder="密码" prefix-icon="el-icon-lock" type="password" :show-password="true"
+          @keyup.enter="doLogin">
         </el-input>
       </el-form-item>
       <el-form-item>
@@ -69,8 +70,8 @@ export default {
 
     return {
       loginParam: {
-        username: 'chiris',
-        password: '196980wwx',
+        username: '',
+        password: '',
       },
       last_login_u: localStorage.getItem(LAST_LOGIN_UNAME),
       login_avatar: '',
@@ -127,8 +128,6 @@ export default {
       })
     },
     handleUnameBlur(val){
-      console.log('last', this.last_login_u)
-
       if (val === this.last_login_u){
         this.avatar = localStorage.getItem(LAST_LOGIN_AVATAR)
       }else{
