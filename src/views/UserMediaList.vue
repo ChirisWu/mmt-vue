@@ -42,7 +42,8 @@ export default {
           views: 0,
           createDateTime: "",
           sourceUrl: "",
-          title: ""
+          title: "",
+          coverUrl: ''
         },
       ],
       deleteEnable: false
@@ -62,6 +63,7 @@ export default {
     getUserVideos() {
       momentService.getUserMedia(momentService.VIDEO_TYPE, this.$route.query.ud)
       .then(res => {
+        console.log(res)
         if (res.data.status.statusCode === 200){
           this.userVideos = res.data.data
         }

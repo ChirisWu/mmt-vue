@@ -145,9 +145,10 @@ export default {
 
   .user_page{
     width:94.4%;
-    height: 100%;
+    height: 1024px;
     padding: 30px 40px 40px 40px;
     margin: 0;
+    position: relative;
 
   }
   .m_user_infos{

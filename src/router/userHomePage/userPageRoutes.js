@@ -1,8 +1,8 @@
 
 const creationTypesPath = [
-    '/create_video',
-    '/create_radio',
-    '/create_moment'
+    '/create/video',
+    '/create/audio',
+    '/create_whisper'
 ]
 
 export function goCreation(router){

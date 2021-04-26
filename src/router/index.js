@@ -33,17 +33,12 @@ const routes = [
         component: () => import('@/components/userPage/Creation')
       },
       {
-        path:'/create_video',
-        name: 'CreateVideo',
+        path:'/create/:type',
+        name: 'Create',
         component: () => import('@/components/userPage/VideoCreation')
       },
       {
-        path: '/create_radio',
-        name: 'CreateRadio',
-        component: () => import('@/components/userPage/RadioCreation')
-      },
-      {
-        path: '/create_moment',
+        path: '/create_whisper',
         name: 'CreateMoment',
         component: () => import('@/components/userPage/MomentCreation')
       },
@@ -80,7 +75,7 @@ const routes = [
   {
     path: '/upload',
     name: 'Upload',
-    component: () => import('@/components/upload/singleUpload')
+    component: () => import('@/components/upload/SingleImgUpload')
   },
   {
     path: '/drag_upload',
