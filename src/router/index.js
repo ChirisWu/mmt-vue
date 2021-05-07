@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import {ElMessageBox} from "element-plus";
+import {get_refresh_token} from "../util/auth";
 
 const routes = [
   {
@@ -35,7 +37,8 @@ const routes = [
       {
         path:'/create/:type',
         name: 'Create',
-        component: () => import('@/components/userPage/VideoCreation')
+        component: () => import('@/components/userPage/VideoCreation'),
+
       },
       {
         path: '/create_whisper',
@@ -113,9 +116,31 @@ const routes = [
 
 ]
 
+const whiteRouteList = [
+  '/login',
+  '/square/**',
+  '/'
+]
 const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+router.beforeEach((to, from, next) => {
+
+  let toPath = to.path
+  if (contains(whiteRouteList, toPath) || isAuthenticated()){
+    next()
+  } else {
+    next('/login')
+  }
+})
+
+function isAuthenticated() {
+  let token = get_refresh_token()
+  return token !== undefined && token !== null && token !== ''
+}
+function contains(array, element) {
+  return array.indexOf(element) < 0;
+}
 
 export default router

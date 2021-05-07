@@ -47,9 +47,9 @@ export default {
 
       },
       uploadUrl: OssService.OssUploadUrl,
-      videoNotification: '暂时只支持mp4文件',
-      audioNotification:'暂时只支持mp3文件',
-      accept: this.type === 'video' ? 'vide/mp4' : 'audio/mp3'
+      videoNotification: '请上传mp4文件',
+      audioNotification:'请上传mp3文件',
+      accept: 'video/mp4, audio/mp3'
 
 
     }
@@ -58,12 +58,12 @@ export default {
   methods: {
     beforeUpload(file) {
       if (!this.filterFileType(file)) {
-        this.notifyUploadError(this.videoNotification)
+        let msg = this.type === 'video' ? this.videoNotification : this.audioNotification
+        this.notifyUploadError(msg)
         return false
       }
       let _self = this;
-      let videoTitle = file.name.substring(0, file.name.indexOf("."))
-      this.$emit('videoTitle', videoTitle)
+      this.$emit('videoTitle', file.name)
       return new Promise((resolve, reject) => {
         ossService.signature().then(response => {
           let data = response.data.data
@@ -89,7 +89,9 @@ export default {
         title: '上传成功',
         message: file.name + "已经上传到服务器",
         position: 'top-left',
-        offset: 200
+        offset: 200,
+        duration: 900
+
       })
       let videoUrl = this.uploadUrl + '/' + this.ossUploadParam.dir + '/' + file.name
       this.$emit('videoUrl', videoUrl)
@@ -114,7 +116,7 @@ export default {
   },
 
   mounted() {
-
+    // this.accept = this.type === 'video' ? 'vide/mp4' : 'audio/mp3'
   }
 }
 </script>

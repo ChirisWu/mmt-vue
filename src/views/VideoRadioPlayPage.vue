@@ -319,7 +319,7 @@ export default {
 
     .mmt_author_other_moment {
       .mmt_other_moment_card {
-        height: 180px;
+        height: 160px;
         border: 1px solid silver;
         margin-top: 7px;
       }

@@ -49,7 +49,7 @@ function e401() {
     ElMessageBox.alert('认证失败，请重新登录', '登录提醒', {
         confirmButtonText: '去登录',
     }).then(r => {
-        router.push('/404')
+        router.push('/login')
     })
 
 }

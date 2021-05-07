@@ -63,7 +63,6 @@ export default {
     getUserVideos() {
       momentService.getUserMedia(momentService.VIDEO_TYPE, this.$route.query.ud)
       .then(res => {
-        console.log(res)
         if (res.data.status.statusCode === 200){
           this.userVideos = res.data.data
         }
@@ -81,12 +80,15 @@ export default {
         cancelButtonText: '取消',
         iconClass: 'el-icon-delete'
       }).then(() => {
-        momentService.delete(id).then(() => {
-          this.deleteVideo(id)
-          this.$alert('已删除', {
-            type: 'success',
-            confirmButtonText: '关闭'
-          })
+        momentService.delete(id).then((res) => {
+          console.log(res)
+          if (res.status === 200){
+            this.deleteVideo(id)
+            this.$alert('已删除', {
+              type: 'success',
+              confirmButtonText: '关闭'
+            })
+          }
         })
       })
     },
@@ -129,8 +131,8 @@ export default {
 
     }
     .mmt_user_video_card_wrapper{
-      height: 180px;
-      width: 16.667%;
+      height: 160px;
+      width: 16.665%;
       float: left;
       position: relative;
       .mmt_video_delete{

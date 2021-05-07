@@ -43,7 +43,6 @@
 import accountService from "@/api/login";
 import {validateEmail, stripscript, validatePass} from "@/util/validate";
 import {validateSpecialChar} from "../../util/validate";
-import {LAST_LOGIN_UNAME} from "@/util/auth";
 
 export default {
   name: "RegisterForm",
