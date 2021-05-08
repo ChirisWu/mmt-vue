@@ -2,7 +2,7 @@
   <div class="mmt_video_card_4user" @click="goVideoPlayPage">
     <img :src="videoVo.coverUrl ? videoVo.coverUrl : snapshotOfVideo(videoVo.sourceUrl)"/>
     <div class="mmt_video_card_footer">
-      <p>{{videoVo.title}}</p>
+      <p style="-webkit-line-clamp:1">{{videoVo.title}}</p>
       <div style="overflow: hidden">
         <span><i class="el-icon-video-play"></i>{{showViews(videoVo.views)}}</span>
         <span style="margin-left: 18%"><i class="el-icon-time"></i> {{videoVo.createDateTime.substring(0, 10)}}</span>
@@ -41,7 +41,8 @@
         this.$router.push({
           name: 'Play',
           params: {
-            id: id
+            id: id,
+            type: 'video'
           }
         })
 
@@ -72,10 +73,12 @@
       font-size: 12px;
 
       p {
-        height: 22px;
+        height: 26px;
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 6px 0;
+        width: 100%;
+        line-height: 13px;
       }
 
       i {

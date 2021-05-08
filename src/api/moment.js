@@ -9,6 +9,12 @@ momentService.VIDEO_TYPE = 1
 momentService.AUDIO_TYPE = 2
 momentService.WHISPER_TYPE = 0
 
+momentService.typeIdMap = {
+    VIDEO_TYPE: 'video',
+    AUDIO_TYPE: 'audio',
+    WHISPER_TYPE: 'whisper',
+}
+
 momentService.createMediaMoment = (paramObj) => {
     return http({
         url: BASE_URL,

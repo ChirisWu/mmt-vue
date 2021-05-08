@@ -46,16 +46,15 @@ const routes = [
         component: () => import('@/components/userPage/MomentCreation')
       },
       {
-        path: '/va',
+        path: '/va/:type/:username/:ud',
         name: 'Va',
         component: () => import('@/views/UserMediaList')
       },
       {
-        path: '/play/:id',
+        path: '/play/:type/:id',
         name: 'Play',
         component: () => import('@/views/VideoRadioPlayPage')
-      }
-
+      },
     ]
   },
   {
@@ -76,28 +75,21 @@ const routes = [
     ]
   },
   {
-    path: '/upload',
-    name: 'Upload',
-    component: () => import('@/components/upload/SingleImgUpload')
-  },
-  {
     path: '/drag_upload',
     name: "DragUpload",
     component: () => import('@/components/upload/DragUpload')
   },
 
-  {
-    path: '/player',
-    name: 'Player',
-    component: () => import('@c/media/MmtVideoPlayer')
-  },
 
   {
     path: '/404',
     name: '404',
     component: () => import('@v/error/404')
   },
-
+  {
+    path: '/audio',
+    component: () => import('@c/media/MmtAudioPlayer')
+  },
 
 
 
@@ -118,22 +110,21 @@ const routes = [
 
 const whiteRouteList = [
   '/login',
-  '/square/**',
+  '/square',
   '/'
 ]
 const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-router.beforeEach((to, from, next) => {
-
-  let toPath = to.path
-  if (contains(whiteRouteList, toPath) || isAuthenticated()){
-    next()
-  } else {
-    next('/login')
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   let toPath = to.path
+//   if (contains(whiteRouteList, toPath) || isAuthenticated()){
+//     next()
+//   } else {
+//     next('/login')
+//   }
+// })
 
 function isAuthenticated() {
   let token = get_refresh_token()

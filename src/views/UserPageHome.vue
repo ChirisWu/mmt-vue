@@ -55,7 +55,7 @@
             <img src="../assets/home/video.jpg" >
             <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.videoCount}}个视屏</h3></div>
           </div></el-col>
-          <el-col :span="6"><div class="m_user_piece_card">
+          <el-col :span="6"><div class="m_user_piece_card" @click="goAudioList">
             <img src="../assets/home/音频封面.jpg">
             <div class="m_user_piece_tip"><h3>{{userInfo .userStatistic.radioCount}}首音频</h3></div>
           </div></el-col>
@@ -115,9 +115,23 @@ export default {
   },
   methods: {
     goVideList(){
+      let uname = this.userInfo.username
+      let ud = this.userInfo.userId
       this.$router.push({
-        path: '/va',
-        query: {
+        name: 'Va',
+        params: {
+          type: 'video',
+          username: uname,
+          ud: ud
+
+        },
+      })
+    },
+    goAudioList(){
+      this.$router.push({
+        name: 'Va',
+        params: {
+          type: 'audio',
           username: this.userInfo.username,
           ud: this.userInfo.userId
         }

@@ -46,10 +46,11 @@ export default {
         host: '',
 
       },
+      fileKey: '',
       uploadUrl: OssService.OssUploadUrl,
       videoNotification: '请上传mp4文件',
       audioNotification:'请上传mp3文件',
-      accept: 'video/mp4, audio/mp3'
+      accept: 'video/mp4, audio/mp3',
 
 
     }
@@ -63,14 +64,17 @@ export default {
         return false
       }
       let _self = this;
-      this.$emit('videoTitle', file.name)
+      let filename = file.name
+      this.$emit('videoTitle', filename)
+      this.fileKey = ossService.handleFilename(file.uid)
+      console.log(this.fileKey)
       return new Promise((resolve, reject) => {
         ossService.signature().then(response => {
           let data = response.data.data
           _self.ossUploadParam.policy = data.policy;
           _self.ossUploadParam.signature = data.signature;
           _self.ossUploadParam.ossaccessKeyId = data.accessid;
-          _self.ossUploadParam.key = data.dir + '/${filename}';
+          _self.ossUploadParam.key = data.dir + '/' + this.fileKey;
           _self.ossUploadParam.dir = data.dir;
           _self.ossUploadParam.host = data.host;
           resolve(true)
@@ -93,7 +97,7 @@ export default {
         duration: 900
 
       })
-      let videoUrl = this.uploadUrl + '/' + this.ossUploadParam.dir + '/' + file.name
+      let videoUrl = this.uploadUrl + '/' + this.ossUploadParam.dir + '/' + this.fileKey
       this.$emit('videoUrl', videoUrl)
     },
     handleError(err, file) {
@@ -109,14 +113,15 @@ export default {
         offset: 200
       })
     },
-    uploadFile() {
-      this.$refs.dragUpload.submit()
-    }
+
+
 
   },
 
   mounted() {
     // this.accept = this.type === 'video' ? 'vide/mp4' : 'audio/mp3'
+    let filename = ossService.handleFilename('sssss')
+    console.log(filename)
   }
 }
 </script>

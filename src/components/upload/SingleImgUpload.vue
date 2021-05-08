@@ -34,6 +34,7 @@
           host: '',
 
         },
+          fileKey: '',
         uploadUrl: OssService.OssUploadUrl,
 
       }
@@ -41,13 +42,14 @@
     methods: {
       beforeUpload(file) {
         let _self = this;
+        _self.fileKey = ossService.handleFilename(file.uid)
         return new Promise((resolve, reject) => {
           ossService.signature().then(response => {
             let data = response.data.data
             _self.ossUploadParam.policy = data.policy;
             _self.ossUploadParam.signature = data.signature;
             _self.ossUploadParam.ossaccessKeyId = data.accessid;
-            _self.ossUploadParam.key = data.dir + '/${filename}';
+            _self.ossUploadParam.key = data.dir + '/' + _self.fileKey;
             _self.ossUploadParam.dir = data.dir;
             _self.ossUploadParam.host = data.host;
             resolve(true)
@@ -58,7 +60,7 @@
         })
       },
       handleImgSuccess(response, file) {
-        let imgUrl = this.uploadUrl + '/' + this.ossUploadParam.dir + '/' + file.name
+        let imgUrl = this.uploadUrl + '/' + this.ossUploadParam.dir + '/' + this.fileKey
         this.imageUrl = imgUrl
         this.$emit('imgUrl', imgUrl)
       }

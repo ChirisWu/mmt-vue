@@ -10,7 +10,14 @@
         <p>&nbsp;&nbsp;&nbsp;{{momentDetails.description}}</p>
       </div>
       <div class="mmt_player_wrapper">
-        <mmt-video-player :video-url="momentDetails.sourceUrl"/>
+<!--        音视频播放器-->
+        <mmt-video-player :video-url="momentDetails.sourceUrl" v-if="type === 'video'"/>
+        <mmt-audio-player
+          :cover-url="momentDetails.coverUrl"
+          :source-url="momentDetails.sourceUrl"
+          v-else-if="type === 'audio'"
+        />
+<!--        播放器footer-->
         <div class="mmt_player_footer">
           <div class="mmt_moment_infos">
             <div class="info_items">
@@ -30,6 +37,7 @@
 
         </div>
       </div>
+<!--      评论区-->
       <div class="mmt_comment_wrapper">
         <el-row :gutter="20">
           <el-col :span="21">
@@ -45,9 +53,9 @@
     </div>
     <div class="mmt_author">
       <div class="mmt_author_info">
-        <div class="mmt_author_avatar">
+        <p class="mmt_author_avatar">
           <el-avatar :size="58" :src="momentDetails.authorAvatar">author</el-avatar>
-        </div>
+        </p>
         <div class="mmt_author_opt">
           <div style="padding-top:10px">{{ momentDetails.author }}</div>
           <div>
@@ -57,6 +65,7 @@
       </div>
 
       <div class="mmt_author_other_moment">
+        <h4>{{ momentDetails.author }}的其他{{typeZh}}</h4>
         <div class="mmt_other_moment_card" v-for="(item, index) in recommendMedias" :class="item.id === mId ? 'select' : ''">
           <video-card :video-vo="item" @click="publishRouteChangeEvent(item.id)"/>
         </div>
@@ -75,6 +84,9 @@ import VideoCard from "@c/media/VideoCard";
 import commentService from "@/api/comment";
 import StatisticService from "@/api/statistic";
 import MmtMessageBox from "@c/common/MmtMessageBox";
+import MmtAudioPlayer from "../components/media/MmtAudioPlayer";
+import Constant from "../util/const";
+
 
 export default {
   name: "VideoPlay",
@@ -84,12 +96,15 @@ export default {
     IconComment,
     IconPlay,
     VideoCard,
-    MmtMessageBox
+    MmtMessageBox,
+    MmtAudioPlayer
 
   },
   data() {
     return {
+      type: this.$route.params.type,
       m_id: this.$route.params.id,
+      typeZh: Constant.mediaTypeZhMap.get(this.$route.params.type),
       url: 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com/test/callback/fffff.mp4',
       momentDetails: {
         momentId	:	9,
@@ -107,7 +122,8 @@ export default {
         authorId: '',
         author	:	'',
         authorAvatar	:	'',
-        isPraised: true
+        isPraised: true,
+        coverUrl: '',
         },
       recommendMedias: [
         {
@@ -155,7 +171,7 @@ export default {
     },
 
     getRecommendOfPlayPage(){
-      momentService.getRecommendOfPlayePage(1, this.momentDetails.authorId)
+      momentService.getRecommendOfPlayePage(Constant.mediaTypeIdMap.get(this.type), this.momentDetails.authorId)
       .then(res => {
         if (res.data.status.statusCode === 200){
           this.recommendMedias = res.data.data
@@ -176,7 +192,6 @@ export default {
 
 
     createLevel1Comment() {
-
       this.commentParam.commentContent = this.commentParam.commentContent.replaceAll(' ', '')
       if (this.commentParam.commentContent === ''){
         this.$alert('评论内容不能为空','', {

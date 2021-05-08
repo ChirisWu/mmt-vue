@@ -1,7 +1,6 @@
 <template>
     <div class="mmt_video_player">
         <video :src="videoUrl" controls>
-
         </video>
     </div>
 </template>
