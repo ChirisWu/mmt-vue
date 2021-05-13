@@ -14,23 +14,23 @@
             </div>
             <el-button round size="small"
             style="position:absolute; top: 36%; right: 20%;"
-            >编辑个人资料</el-button>
+            >edit my infos</el-button>
           </div>
           <div class="m_user_basic_info_list">
               <div class="m_user_info_item double_line_info">
-                  <h4>关注</h4>
+                  <h4>follow</h4>
                   <div>{{userInfo.userStatistic.concernCount}}</div>
               </div>
             <div class="m_user_info_item double_line_info">
-              <h4>粉丝</h4>
+              <h4>followed</h4>
               <div>{{userInfo.userStatistic.fansCount}}</div>
             </div>
             <div class="m_user_info_item double_line_info">
-              <h4>原创</h4>
+              <h4>piece</h4>
               <div>{{userInfo.userStatistic.originalCount}}</div>
             </div>
             <div class="m_user_info_item double_line_info">
-              <h4>被访问</h4>
+              <h4>guest</h4>
               <div>{{userInfo.userStatistic.personalPageViews}}</div>
             </div>
             <div class="m_user_info_item">
@@ -42,7 +42,7 @@
                 <el-divider direction="vertical"></el-divider>
                 <i class="el-icon-postcard">&nbsp;{{userInfo.userExtInfos.work}}</i>
                 <el-divider direction="vertical"></el-divider>
-                上次活跃： {{userInfo.userStatistic.lastActiveDatetime}}
+                last active： {{userInfo.userStatistic.lastActiveDatetime}}
               </div>
             </div>
           </div>
@@ -53,19 +53,19 @@
         <el-row :gutter="20">
           <el-col :span="6"><div class="m_user_piece_card" @click="goVideList">
             <img src="../assets/home/video.jpg" >
-            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.videoCount}}个视屏</h3></div>
+            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.videoCount}} videos</h3></div>
           </div></el-col>
           <el-col :span="6"><div class="m_user_piece_card" @click="goAudioList">
             <img src="../assets/home/音频封面.jpg">
-            <div class="m_user_piece_tip"><h3>{{userInfo .userStatistic.radioCount}}首音频</h3></div>
+            <div class="m_user_piece_tip"><h3>{{userInfo .userStatistic.radioCount}} audios</h3></div>
           </div></el-col>
           <el-col :span="6"><div class="m_user_piece_card">
             <img src="../assets/home/动态2.jpg">
-            <div class="m_user_piece_tip"><h3>我的星球</h3></div>
+            <div class="m_user_piece_tip"><h3>my planet</h3></div>
           </div></el-col>
           <el-col :span="6"><div class="m_user_piece_card">
             <img src="../assets/home/birds.png">
-            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.sharesCount}}篇轻语</h3></div>
+            <div class="m_user_piece_tip"><h3>{{userInfo.userStatistic.sharesCount}} whispers</h3></div>
           </div></el-col>
         </el-row>
       </div>
@@ -136,20 +136,23 @@ export default {
           ud: this.userInfo.userId
         }
       })
+    },
+    getUserPageVo(){
+      let currentUser = this.$route.params.uname
+      if (currentUser){
+        userService.get_user_page(currentUser).then(res => {
+          if (res.data.status.statusCode === 200){
+            this.userInfo = res.data.data
+            this.$store.commit('setCUAvatar', res.data.data.avatarUrl)
+          }
+        }).catch( err => {
+          console.log('get user page error' + err)
+        })
+      }
     }
   },
   mounted() {
-    let currentUser = localStorage.getItem("username")
-    if (currentUser){
-      userService.get_user_page(currentUser).then(res => {
-        if (res.data.status.statusCode === 200){
-          this.userInfo = res.data.data
-          this.$store.commit('setCUAvatar', res.data.data.avatarUrl)
-        }
-      }).catch( err => {
-        console.log('get user page error' + err)
-      })
-    }
+    this.getUserPageVo()
 
   }
 }
@@ -159,7 +162,6 @@ export default {
 
   .user_page{
     width:94.4%;
-    height: 1024px;
     padding: 30px 40px 40px 40px;
     margin: 0;
     position: relative;

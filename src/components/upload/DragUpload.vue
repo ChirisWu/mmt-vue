@@ -11,10 +11,10 @@
         :data="ossUploadParam"
         multiple>
       <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处自动上传，或<em>点击上传</em></div>
+      <div class="el-upload__text">drag file to here, or <em>click to upload</em></div>
       <template #tip>
         <div class="el-upload__tip">
-          只能上传{{type === 'video'? 'mp4' : 'mp3' }}文件，且不能超过400MB
+          support {{type === 'video'? 'mp4' : 'mp3' }} file，and less than 400MB
         </div>
       </template>
     </el-upload>
@@ -48,8 +48,8 @@ export default {
       },
       fileKey: '',
       uploadUrl: OssService.OssUploadUrl,
-      videoNotification: '请上传mp4文件',
-      audioNotification:'请上传mp3文件',
+      videoNotification: 'please select mp4 file',
+      audioNotification:'please select mp3 file',
       accept: 'video/mp4, audio/mp3',
 
 
@@ -79,7 +79,7 @@ export default {
           _self.ossUploadParam.host = data.host;
           resolve(true)
         }).catch(err => {
-          this.notifyUploadError("网络异常，上传到服务器失败！")
+          this.notifyUploadError("network error！")
           reject(false)
         })
       })
@@ -90,8 +90,8 @@ export default {
     },
     handleSuccess(response, file) {
       this.$notify.success({
-        title: '上传成功',
-        message: file.name + "已经上传到服务器",
+        title: 'success',
+        message: file.name + "has upload success",
         position: 'top-left',
         offset: 200,
         duration: 900
@@ -101,13 +101,13 @@ export default {
       this.$emit('videoUrl', videoUrl)
     },
     handleError(err, file) {
-      console.log('上传失败')
-      this.notifyUploadError("网络异常，上传到服务器失败!")
+      console.log('failed!')
+      this.notifyUploadError("network error!")
 
     },
     notifyUploadError(msg) {
       this.$notify.error({
-        title: '文件上传异常',
+        title: 'upload error',
         message: msg,
         position: 'top-left',
         offset: 200

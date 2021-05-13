@@ -2,7 +2,7 @@
   <div class="mmt_login_form_wrapper">
     <el-form class="mmt_login_form" :model="loginParam" ref="loginParam" :rules="rules"
              v-loading="loading"
-             element-loading-text="登陆中请稍后"
+             element-loading-text="signing in"
              element-loading-background="rgba(0,0,0,0.4)"
              element-loading-spinner="el-icon-loading"
     >
@@ -12,26 +12,26 @@
       <el-form-item prop="username">
         <el-input
             v-model="loginParam.username"
-            placeholder="用户名或邮箱" prefix-icon="el-icon-user"
+            placeholder="username/email" prefix-icon="el-icon-user"
             :blur="handleUnameBlur(loginParam.username)"
         ></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input
             v-model="loginParam.password"
-            placeholder="密码" prefix-icon="el-icon-lock" type="password" :show-password="true"
+            placeholder="password" prefix-icon="el-icon-lock" type="password" :show-password="true"
           @keyup.enter="doLogin">
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain round @click="doLogin">登录</el-button>
+        <el-button type="primary" plain round @click="doLogin">sign in</el-button>
       </el-form-item>
       <el-row class="mmt_link_footer">
         <el-col :span="12">
-          <router-link to="register">点击注册</router-link>
+          <router-link to="register">sign up</router-link>
         </el-col>
         <el-col :span="12">
-          <el-link>忘记密码?</el-link>
+          <el-link>forget password?</el-link>
         </el-col>
       </el-row>
     </el-form>
@@ -43,6 +43,7 @@ import {validatePass, stripscript} from "@/util/validate";
 import accountService from '@/api/login'
 import {get_access_token, set_access_token, set_refresh_token} from "@/util/auth";
 import {LAST_LOGIN_AVATAR, LAST_LOGIN_UNAME} from "../../util/auth";
+import Constant from "../../util/const";
 
 export default {
   name: "LoginForm",
@@ -51,7 +52,7 @@ export default {
     const validateUsername = (rule, value, callback)=> {
       this.loginParam.username = this.loginParam.username.replace(' ', '')
       if (value === '') {
-        callback(new Error('请输入用户名'));
+        callback(new Error('username required'));
       } else {
         callback(); //true
       }
@@ -60,9 +61,9 @@ export default {
       this.loginParam.password = stripscript(value);
       value = this.loginParam.password;
       if (value === '') {
-        callback(new Error("请输入密码"));
+        callback(new Error("password required"));
       } else if (validatePass(value)) {
-        callback(new Error("密码必须为6至20位数字+字母"));
+        callback(new Error("password length is 6-20 and should be number-alphabet"));
       } else {
         callback();
       }
@@ -107,9 +108,16 @@ export default {
               let data = res.data.data
               set_access_token(data.tokenHead + ' ' + data.token, data.expiresIn)
               set_refresh_token(data.refreshToken)
-              localStorage.setItem("username", this.loginParam.username)
+              // localStorage.setItem(Constant.localStoreUsernameKey, this.loginParam.username)
+              this.$store.commit('setCurrentUsername', this.loginParam.username)
               this.loading = false
-              this.$router.push('/user')
+              this.$router.push({
+                name: 'User',
+                params:{
+                  uname: this.loginParam.username
+                }
+              })
+
             }else{
               this.$message.info(res.data.status.msg)
             }

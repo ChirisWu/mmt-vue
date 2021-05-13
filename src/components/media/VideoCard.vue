@@ -5,7 +5,7 @@
       <p style="-webkit-line-clamp:1">{{videoVo.title}}</p>
       <div style="overflow: hidden">
         <span><i class="el-icon-video-play"></i>{{showViews(videoVo.views)}}</span>
-        <span style="margin-left: 18%"><i class="el-icon-time"></i> {{videoVo.createDateTime.substring(0, 10)}}</span>
+        <span style="margin-left: 5%"><i class="el-icon-time"></i> {{videoVo.createDateTime.substring(0, 10)}}</span>
       </div>
     </div>
   </div>

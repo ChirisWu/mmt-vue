@@ -5,7 +5,7 @@
                 <el-col :span="7">
                     <img src="../assets/logo/logo.png">
                 </el-col>
-                <el-col :span="16"><h2>登录MLife</h2></el-col>
+                <el-col :span="16"><h2>sign in MLife</h2></el-col>
             </el-row>
           <router-view/>
 

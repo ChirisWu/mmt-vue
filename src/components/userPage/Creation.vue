@@ -1,25 +1,25 @@
 <template>
   <div class="mmt_user_creation">
     <div class="mmt_user_creation_header">
-      <h2>创作者中心</h2>
+      <h2>create center</h2>
     </div>
     <el-row :gutter="30" type="flex" class="mmt_user_creation_list" justify="center">
       <el-col :span="6">
         <el-card shadow="hover" class="mmt_user_creation_item" @click="handleCreateRoute(0)">
           <p><i class="el-icon-video-camera-solid"/></p>
-          <h3>视频</h3>
+          <h3>video</h3>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" class="mmt_user_creation_item" @click="handleCreateRoute(1)">
           <p><i class="el-icon-mic"/></p>
-          <h3>音频</h3>
+          <h3>audio</h3>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card shadow="hover" class="mmt_user_creation_item" @click="handleCreateRoute(2)">
           <p><i class="el-icon-s-help"/></p>
-          <h3>轻语</h3>
+          <h3>whisper</h3>
         </el-card>
       </el-col>
     </el-row>

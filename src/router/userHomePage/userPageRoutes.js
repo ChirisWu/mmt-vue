@@ -11,3 +11,12 @@ export function goCreation(router){
 export function goCreationTypes(route, index) {
     route.push(creationTypesPath[index])
 }
+
+export function goUserPage(route, name) {
+    route.push({
+        name: 'User',
+        params: {
+            uname: name
+        }
+    })
+}

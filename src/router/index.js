@@ -15,7 +15,7 @@ const routes = [
     component: () => import('@/views/ConcretHomeWrapper'),
     children: [
       {
-        path: '/user',
+        path: '/u/:uname',
         name: 'User',
         component: ()=> import('@/views/UserPageHome')
       },
@@ -37,7 +37,7 @@ const routes = [
       {
         path:'/create/:type',
         name: 'Create',
-        component: () => import('@/components/userPage/VideoCreation'),
+        component: () => import('@/components/userPage/MediaCreation'),
 
       },
       {
@@ -117,14 +117,16 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-// router.beforeEach((to, from, next) => {
-//   let toPath = to.path
-//   if (contains(whiteRouteList, toPath) || isAuthenticated()){
-//     next()
-//   } else {
-//     next('/login')
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // let toPath = to.path
+  // if (contains(whiteRouteList, toPath) || isAuthenticated()){
+  //   next()
+  // } else {
+  //   next('/login')
+  // }
+  console.log(to)
+  next()
+})
 
 function isAuthenticated() {
   let token = get_refresh_token()

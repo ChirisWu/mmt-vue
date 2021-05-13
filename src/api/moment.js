@@ -9,10 +9,14 @@ momentService.VIDEO_TYPE = 1
 momentService.AUDIO_TYPE = 2
 momentService.WHISPER_TYPE = 0
 
+momentService.ORDER_BY_VIEWS = 'views'
+momentService.ORDER_BY_DATE = 'date'
+
 momentService.typeIdMap = {
     VIDEO_TYPE: 'video',
     AUDIO_TYPE: 'audio',
     WHISPER_TYPE: 'whisper',
+    3: 'all'
 }
 
 momentService.createMediaMoment = (paramObj) => {
@@ -45,6 +49,13 @@ momentService.delete = id => {
 momentService.getRecommendOfPlayePage = (type, userId) => {
     return http({
         url: BASE_URL + '/recommendOfPlayPage?type=' + type + '&userId=' + userId,
+        method: 'get'
+    })
+}
+
+momentService.getSquareMoments = (current, size, typeId, order) => {
+    return http({
+        url: BASE_URL + `/square/moments?current=${current}&size=${size}&type=${typeId}&order=${order}`,
         method: 'get'
     })
 }

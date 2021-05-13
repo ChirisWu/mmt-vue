@@ -41,10 +41,10 @@
       <div class="mmt_comment_wrapper">
         <el-row :gutter="20">
           <el-col :span="21">
-            <el-input v-model="commentParam.commentContent" placeholder="发表你的精彩评论"></el-input>
+            <el-input v-model="commentParam.commentContent" placeholder="what's your thinking"></el-input>
           </el-col>
           <el-col :span="3">
-            <el-button @click="createLevel1Comment">提交</el-button>
+            <el-button @click="createLevel1Comment">submit</el-button>
           </el-col>
         </el-row>
           <mmt-message-box ref="msgbox" msg="添加了一条评论"/>
@@ -59,13 +59,13 @@
         <div class="mmt_author_opt">
           <div style="padding-top:10px">{{ momentDetails.author }}</div>
           <div>
-            <el-button plain size="small">关注Ta</el-button>
+            <el-button plain size="small">follow</el-button>
           </div>
         </div>
       </div>
 
       <div class="mmt_author_other_moment">
-        <h4>{{ momentDetails.author }}的其他{{typeZh}}</h4>
+        <h5>other {{type}}s of {{ momentDetails.author }}</h5>
         <div class="mmt_other_moment_card" v-for="(item, index) in recommendMedias" :class="item.id === mId ? 'select' : ''">
           <video-card :video-vo="item" @click="publishRouteChangeEvent(item.id)"/>
         </div>
@@ -194,8 +194,8 @@ export default {
     createLevel1Comment() {
       this.commentParam.commentContent = this.commentParam.commentContent.replaceAll(' ', '')
       if (this.commentParam.commentContent === ''){
-        this.$alert('评论内容不能为空','', {
-          confirmButtonText: '确定',
+        this.$alert('comment content is empty','', {
+          confirmButtonText: 'ok',
           iconClass: 'el-icon-close'
         })
 
@@ -214,7 +214,7 @@ export default {
         }
       }).catch(err => {
         this.$message.error({
-          message: '网络错误'
+          message: 'network error'
         })
       })
 

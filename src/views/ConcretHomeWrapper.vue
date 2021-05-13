@@ -5,22 +5,22 @@
         <el-menu mode="horizontal" class="m_header_menu" router>
           <el-menu-item class="m_header_menu_item_logo" index="/"><img src="../assets/logo/logo_transparent.png"/>
           </el-menu-item>
-          <el-menu-item index="/square" class="m_header_menu_item">音乐广场</el-menu-item>
-          <el-menu-item index="/moment" class="m_header_menu_item">音乐动态</el-menu-item>
-          <el-menu-item index="/user" class="m_header_menu_item">我的主页</el-menu-item>
-          <el-menu-item index="4" class="m_header_menu_item">投稿建议</el-menu-item>
+          <el-menu-item index="/square" class="m_header_menu_item">square</el-menu-item>
+          <el-menu-item index="/moment" class="m_header_menu_item">moment</el-menu-item>
+          <el-menu-item :index="userPageRoute" class="m_header_menu_item">my page</el-menu-item>
+          <el-menu-item index="4" class="m_header_menu_item">suggestion</el-menu-item>
         </el-menu>
         <div class="m_header_user_opt">
           <el-row class="mmt_header_opt" :gutter="40">
             <el-col :span="8" style="margin: auto 0">
-              <el-input size="small"  placeholder="搜索用戶/视频/音频">
+              <el-input size="small"  placeholder="search user/video/radio">
                 <template #suffix>
                   <i class="el-input__icon el-icon-search"></i>
                 </template>
               </el-input>
             </el-col>
             <el-col :span="9" style="margin: auto 0">
-              <el-button   round size="small" @click="handleGoCreation">创作中心</el-button>
+              <el-button   round size="small" @click="handleGoCreation">creation</el-button>
             </el-col>
             <el-col :span="3">
               <div>
@@ -30,18 +30,18 @@
                 </span>
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item icon="el-icon-plus">创作</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-setting">设置</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-chat-dot-round">消息</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-help">关于</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-circle-check" @click="logout">退出</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-plus">creation</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-setting">settings</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-chat-dot-round">message</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-help">about</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-circle-check" @click="logout">logout</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
               </div>
             </el-col>
             <el-col :span="4" style="position: relative">
-                <div v-if="!is_sign_in" style="position: absolute; bottom: 7px"> <span> <router-link to="/login">登 录</router-link></span> | <span><router-link to="/register">注 册</router-link></span></div>
+                <div v-if="!is_sign_in" style="position: absolute; bottom: 7px"> <span> <router-link to="/login">sign in/up</router-link></span></div>
             </el-col>
           </el-row>
         </div>
@@ -51,18 +51,24 @@
     <div class="m_home_content">
       <router-view/>
     </div>
+    <div class="m_home_footer_container">
+      <home-footer/>
+    </div>
   </div>
 </template>
 
 <script>
 import { goCreation } from '@/router/userHomePage/userPageRoutes'
 import { auth_logout } from "../util/auth";
+import HomeFooter from "../components/common/HomeFooter";
 export default {
   name: "ConcretHomeWrapper",
+  components: {HomeFooter},
   data() {
     return {
       user_avatar: this.$store.getters.cu_avatar,
-      is_sign_in: this.$store.getters.is_sign
+      is_sign_in: this.$store.getters.is_sign,
+      userPageRoute: '/u/' + this.$store.getters.cu_username
     }
   },
   computed: {},
@@ -71,9 +77,9 @@ export default {
       goCreation(this.$router)
     },
     logout(){
-      this.$confirm('是否要退出登录？', '', {
-        confirmButtonText: '退出',
-        cancelButtonText: '取消',
+      this.$confirm('confirm to logout？', '', {
+        confirmButtonText: 'confirm',
+        cancelButtonText: 'cancel',
         iconClass: 'el-icon-close'
       }).then(() => {
         if (!this.$store.is_sign_in){
@@ -156,6 +162,10 @@ export default {
     margin: 0 auto;
     border: solid 1px rgb(213, 213, 213);
     border-top: none;
+  }
+  .m_home_footer_container{
+    width: 70%;
+    margin: 0 auto 0 auto;
   }
 }
 </style>

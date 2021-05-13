@@ -46,8 +46,9 @@ http.interceptors.response.use(function (response) {
 });
 function e401() {
     console.log(401)
-    ElMessageBox.alert('认证失败，请重新登录', '登录提醒', {
-        confirmButtonText: '去登录',
+    ElMessageBox.alert('unAuthenticated', 'please sign in', {
+        confirmButtonText: 'sign in',
+        showClose: false
     }).then(r => {
         router.push('/login')
     })

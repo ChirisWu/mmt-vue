@@ -2,7 +2,7 @@
   <div class="mmt_video_create_wrapper">
     <div class="mmt_video_creation_header">
       <h3>
-        发布 MLife {{ typeZh }}
+        create m life {{ type }}
       </h3>
     </div>
     <div class="mmt_video_upload_wrapper" v-show="publishState === publishStateEnum.uploadMedia">
@@ -10,8 +10,8 @@
     </div>
     <div class="mmt_cover_upload_wrapper" v-show="publishState === publishStateEnum.setCover">
       <div class="mmt_cover_select_box" v-show="selectButtonShow">
-        <el-button @click="handelSelectCoverType(coverTypeEnum.upload)">上传自定义封面</el-button>
-        <el-button @click="handelSelectCoverType(coverTypeEnum.select)">选择一张封面</el-button>
+        <el-button @click="handelSelectCoverType(coverTypeEnum.upload)">upload cover</el-button>
+        <el-button @click="handelSelectCoverType(coverTypeEnum.select)" :disabled="true">select cover</el-button>
       </div>
       <div class="upload_wrapper" v-if="coverType === coverTypeEnum.upload">
         <SingleImgUpload @imgUrl="handleCoverImg($event)"/>
@@ -29,22 +29,22 @@
       <h4></h4>
       <el-form label-height="100" :model="videoContent" ref="videoContent" class="mmt_video_form">
         <el-form-item>
-          <label>{{typeZh}}标题</label>
+          <label>{{typeZh}}title</label>
           <el-input id="mmt_video_title" v-model="videoContent.title"></el-input>
         </el-form-item>
         <el-form-item>
-          <label>{{typeZh}}描述</label>
+          <label>{{typeZh}}description</label>
           <el-input id="video_text" type="textarea"
                     :autosize="{ minRows: 4, maxRows: 10}"
                     v-model="videoContent.description"
                     maxlength="500"
                     show-word-limit
                     style="initial-letter: inherit"
-                    placeholder="视频的描述，不超过500字(可选)"></el-input>
+                    placeholder="description text, less 500 words"></el-input>
         </el-form-item>
         <el-form-item>
-          <label>相关链接</label>
-          <el-input v-model="videoContent.relativeUrl" placeholder="选填"></el-input>
+          <label>relative links</label>
+          <el-input v-model="videoContent.relativeUrl" placeholder="optional"></el-input>
         </el-form-item>
         <el-form-item class="mmt_video_tags">
           <el-tag
@@ -71,8 +71,8 @@
         <el-form-item>
           <el-button type="primary" plain @click="createVideo"
                      v-loading.fullscreen.lock="uploading"
-                      element-loading-text="发布中...">发布</el-button>
-          <el-button type="info" plain @click="cancelCreate">取消</el-button>
+                      element-loading-text="发布中...">publish</el-button>
+          <el-button type="info" plain @click="cancelCreate">cancel</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -92,14 +92,13 @@
       return {
         self: this,
         uploading: false,
-        uploadingText: '正在发布...',
+        uploadingText: 'publishing...',
         type: this.$route.params.type,
-        typeZh: '',
         fileName: '',
         videoContent: {
           title: '',
           relativeUrl: '',
-          tags: ['原创',],
+          tags: ['original',],
           sourceUrl: '',
           description: '',
           userId: 0,
@@ -180,13 +179,13 @@
           this.uploading = false
           if (res.data.status.statusCode === 200) {
             this.$notify.success({
-              message: '视屏动态发布成功！',
+              message: 'moment publish success！',
               position: 'top-left',
               offset: 100,
             })
           } else {
             this.$notify.error({
-              title: '发布失败',
+              title: 'failed',
               message: this.data.status.msg,
               position: 'top-left',
               offset: 100
@@ -210,8 +209,8 @@
         let filename = url.substring(url.lastIndexOf('/') + 1, url.length)
         ossService.deleteOss(filename)
         this.$notify.info(({
-          message: `${filename}已从服务器删除`,
-          title: '取消发布',
+          message: `${filename}has canceled upload`,
+          title: 'cancel',
           position: 'top-left',
           offset: 100
         }))
@@ -220,11 +219,7 @@
     },
     mounted() {
       let type = this.$route.params.type
-      if (type === 'video') {
-        this.typeZh = '视频'
-      } else if (type === 'audio') {
-        this.typeZh = '音频'
-      } else {
+      if (type !== 'video' && type !== 'audio'){
         this.$router.push('/creation')
       }
     },
@@ -235,9 +230,9 @@
       if (canLeave){
         next()
       }else{
-        ElMessageBox.confirm('离开编辑数据将会被清除，确认离开吗？', '提示',{
-          confirmButtonText: '确认离开',
-          cancelButtonText: '继续编辑',
+        ElMessageBox.confirm('if you leave, what you have edited will not save,are you sure to leave？', 'warning',{
+          confirmButtonText: 'leave',
+          cancelButtonText: 'stay',
           type: 'warning'
         })
           .then(() => {

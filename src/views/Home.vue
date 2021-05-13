@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <div class="home_header">
-        <img src="../assets/home/header.png">
+      <h2>M Life, your music repository</h2>
+      <p>maybe you know programmer's code hosted at github,  why can't we have a music repository?</p>
+      <p>so, here is m life, your music piece repository, you can post your music video,audio, or thinking on it, and let
+      more people see it, that's what M Life do. let's getting start...
+      </p>
     </div>
       <div class="home_list_wrapper">
         <el-row>
@@ -9,27 +13,27 @@
             <div class="item_card">
                 <img src="../assets/home/square2.jpg">
                 <div class="img-tips" @click="handleHomeRoute(0)">
-                  <p>我们都在寻找一个地方，寻找一种声音。或许漂泊，四海为家，江边饮酒，月前奏琴...</p>
+                  <p>music pieces around you, just like a completely music market</p>
                 </div>
-                <div class="item_text"><p>音乐广场</p></div>
+                <div class="item_text"><p>square</p></div>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="item_card">
               <img src="../assets/home/moment.jpg" >
               <div class="img-tips" @click="handleHomeRoute(1)">
-                <p>一个人听着耳机？闲散无聊的午后还是失眠的夜晚？也许这里你能发现有趣的故事，好听的歌，认识有趣的人...</p>
+                <p>see what pieces the people you follow or follow you have published recently </p>
               </div>
-              <div class="item_text"><p>音乐动态</p></div>
+              <div class="item_text"><p>moment</p></div>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="item_card">
               <img src="../assets/home/personal2.jpg">
               <div class="img-tips" @click="handleHomeRoute(2)">
-                <p>漂泊的身需要有一张床来安放，同时孤独的心也需要有它自己的家...</p>
+                <p>a music corner belong to me in this vast internet word</p>
               </div>
-              <div class="item_text"><p>我的主页</p></div>
+              <div class="item_text"><p>my page</p></div>
             </div>
           </el-col>
         </el-row>
@@ -54,15 +58,14 @@ export default {
   data() {
     return {
       home_routes:[
-          'mhome/square',
-          'mhome/moment',
-          'mhome/user'
+          '/square',
+          '/moment',
+          '/u/' + this.$store.getters.cu_username
       ]
     }
   },
   methods: {
     handleHomeRoute(i){
-      console.log("route change")
       this.$router.push(this.home_routes[i])
     }
   },
@@ -76,11 +79,13 @@ export default {
   .home{
     width: 100%;
     height: 100%;
+    padding-top: 100px;
+
   }
   .home_header{
     width: 70%;
     margin: 0 auto;
-    height: 270px;
+    height: 170px;
     img{
       height: 100%;
       width: 100%;
@@ -90,6 +95,7 @@ export default {
     width: 70%;
     height: 600px;
     margin: 0 auto;
+
     .el-row {
       margin-bottom: 20px;
       height: 460px;
@@ -150,7 +156,7 @@ export default {
   }
   .footer_wrapper{
     width: 70%;
-    margin: 130px auto 0 auto;
+    margin: 0 auto 0 auto;
     border-top: 1px rgb(213,213,213) solid;
   }
 

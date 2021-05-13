@@ -54,7 +54,7 @@
             _self.ossUploadParam.host = data.host;
             resolve(true)
           }).catch(err => {
-            this.notifyUploadError("网络异常，上传到服务器失败！")
+            this.notifyUploadError("network error！")
             reject(false)
           })
         })

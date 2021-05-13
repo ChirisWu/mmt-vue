@@ -13,4 +13,10 @@ Constant.mediaTypeIdMap = new Map()
 Constant.mediaTypeIdMap.set('audio', 2)
 Constant.mediaTypeIdMap.set('video',1)
 
+// id ===> type en
+Constant.mediaIdTypeMap = new Map()
+let mediaIdType = Constant.mediaIdTypeMap
+mediaIdType.set(1, 'video')
+mediaIdType.set(2, 'audio')
+mediaIdType.set(3, 'all')
 export default Constant

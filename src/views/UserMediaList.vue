@@ -1,10 +1,10 @@
 <template>
   <div class="mmt_user_media_list">
     <div class="mmt_user_media_list_header">
-      <h3>{{username}}的{{typeZh}}({{userVideos.length}})</h3>
+      <h3>{{username}}'s {{type}}({{userVideos.length}})</h3>
       <div class="mmt_user_media_opt">
-        <el-button plain size="small" round type="primary" @click="enableDelete">管 理</el-button>
-        <el-button plain size="small" round type="success" @click="disableDelete" v-if="deleteEnabled">完 成</el-button>
+        <el-button plain size="small" round type="primary" @click="enableDelete">edit</el-button>
+        <el-button plain size="small" round type="success" @click="disableDelete" v-if="deleteEnabled">done</el-button>
       </div>
     </div>
     <div class="mmt_user_videos_wrapper">
@@ -83,17 +83,17 @@
       },
 
       deleteMedia(id, title) {
-        this.$confirm('确定要删除' + title + '吗？删除后不能恢复！', {
-          confirmButtonText: '删除',
-          cancelButtonText: '取消',
+        this.$confirm('are sure to delete' + title + 'it will never recover ', {
+          confirmButtonText: 'delete',
+          cancelButtonText: 'cancel',
           iconClass: 'el-icon-delete'
         }).then(() => {
           momentService.delete(id).then((res) => {
             if (res.status === 200) {
               this.deleteVideo(id)
-              this.$alert('已删除', {
+              this.$alert('deleted', {
                 type: 'success',
-                confirmButtonText: '关闭'
+                confirmButtonText: 'ok'
               })
             }
           })
