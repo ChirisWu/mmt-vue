@@ -6,7 +6,7 @@
           <el-menu-item class="m_header_menu_item_logo" index="/"><img src="../assets/logo/logo_transparent.png"/>
           </el-menu-item>
           <el-menu-item index="/square" class="m_header_menu_item">square</el-menu-item>
-          <el-menu-item index="/moment" class="m_header_menu_item">moment</el-menu-item>
+          <el-menu-item index="/moment" class="m_header_menu_item">whisper</el-menu-item>
           <el-menu-item :index="userPageRoute" class="m_header_menu_item">my page</el-menu-item>
           <el-menu-item index="4" class="m_header_menu_item">suggestion</el-menu-item>
         </el-menu>
@@ -24,16 +24,16 @@
             </el-col>
             <el-col :span="3">
               <div>
-                <el-dropdown>
+                <el-dropdown @command="handelDropdownCommand">
                 <span >
                  <el-avatar :size="46" style="margin-top: 44%" :src="user_avatar">user</el-avatar>
                 </span>
                   <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item icon="el-icon-plus">creation</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-setting">settings</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-chat-dot-round">message</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-help">about</el-dropdown-item>
+                    <el-dropdown-menu >
+                      <el-dropdown-item icon="el-icon-plus" command="/creation">creation</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-setting" command="/settings">settings</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-chat-dot-round" command="/message">message</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-help" command="/about">about</el-dropdown-item>
                       <el-dropdown-item icon="el-icon-circle-check" @click="logout">logout</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
@@ -88,6 +88,9 @@ export default {
         this.$router.push('/login')
       }).catch(() => {
       });
+    },
+    handelDropdownCommand(cmd) {
+      this.$router.push(cmd)
     }
 
   },
@@ -100,6 +103,7 @@ export default {
 
 .m_home {
   width: 100%;
+  min-width: 1518px;
   height: 100%;
   padding: 0;
   border: 0;
@@ -110,6 +114,7 @@ export default {
     height: 70px;
     background-color: rgb(36, 41, 46);
     color: rgb(255, 255, 255);
+    overflow: hidden;
 
     .header_menu_wrapper {
       width: 80%;
@@ -158,7 +163,7 @@ export default {
   }
 
   .m_home_content {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     border: solid 1px rgb(213, 213, 213);
     border-top: none;

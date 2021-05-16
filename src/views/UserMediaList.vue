@@ -42,17 +42,7 @@
         username: this.$route.params.username,
         type: this.$route.params.type,
         typeZh: Constant.mediaTypeZhMap.get(this.$route.params.type),
-        userVideos: [
-          {
-            id: 1,
-            userId: 0,
-            views: 0,
-            createDateTime: "",
-            sourceUrl: "",
-            title: "",
-            coverUrl: ''
-          },
-        ],
+        userVideos: [],
         deleteEnable: false,
       }
     },
@@ -143,7 +133,7 @@
     }
 
     .mmt_user_video_card_wrapper {
-      height: 160px;
+      height: 170px;
       width: 16.665%;
       float: left;
       position: relative;

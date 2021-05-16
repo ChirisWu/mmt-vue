@@ -3,7 +3,7 @@
         <div class="mmt_login_form_container">
             <el-row class="mmt_login_header">
                 <el-col :span="7">
-                    <img src="../assets/logo/logo.png">
+                    <img src="../assets/logo/logo.png" @click="goHome">
                 </el-col>
                 <el-col :span="16"><h2>sign in MLife</h2></el-col>
             </el-row>
@@ -27,7 +27,9 @@ import LoginForm from "@/components/login/LoginForm";
           }
       },
       methods: {
-
+          goHome() {
+              this.$router.push('/')
+          }
       }
     }
 </script>

@@ -1,14 +1,14 @@
 <template>
-  <div class="mmt_carousel_card" :style="{backgroundImage: 'url(' + coverUrl + ')' }">
+  <div @click="goPlayPage" class="mmt_carousel_card" :style="{backgroundImage: 'url(' + carouselCardVo.coverUrl + ')' }">
       <div class="mmt_carousel_card_context">
-          <h2 style="height: 28px; margin: 0; line-height: 28px; width: 100%">独眠在山谷的你</h2>
+          <h2 style="height: 28px; margin: 0; line-height: 28px; width: 100%;color: #4c4e52">{{carouselCardVo.title}}</h2>
           <div class="card_opt_container">
             <div class="card_author_avatar_container">
-              <el-avatar size="large">Author</el-avatar>
+              <el-avatar size="large" :src="carouselCardVo.authorAvatar">Author</el-avatar>
             </div>
             <div style="flex: 3"></div>
             <div class="card_link_container">
-              <p><router-link to="/">details ></router-link></p>
+              <p><router-link @click="incrViews" :to="`/play/${carouselCardVo.type}/${carouselCardVo.mid}`">details ></router-link></p>
             </div>
           </div>
       </div>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+  import StatisticService from "../../api/statistic";
+
   export default {
     name: "CarouselCard",
     props: {
@@ -24,6 +26,15 @@
     data() {
       return {
         coverUrl: 'http://mmt-resource.oss-cn-hangzhou.aliyuncs.com/mmt_user_3/sea.jpg'
+      }
+    },
+    methods: {
+      goPlayPage() {
+        this.incrViews()
+        this.$router.push(`/play/${this.carouselCardVo.type}/${this.carouselCardVo.mid}`)
+      },
+      incrViews() {
+        StatisticService.viewsIncr(this.carouselCardVo.mid)
       }
     }
   }

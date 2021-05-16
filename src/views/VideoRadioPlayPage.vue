@@ -227,8 +227,13 @@ export default {
         this.momentDetails.praiseCount -= 1
       } else {
         StatisticService.praise(this.mId, this.momentDetails.authorId)
-        this.momentDetails.isPraised = true
-        this.momentDetails.praiseCount += 1
+        .then((res) => {
+          if (res.status.statusCode === 200){
+            this.momentDetails.isPraised = true
+            this.momentDetails.praiseCount += 1
+          }
+        })
+
       }
     }
 

@@ -6,7 +6,7 @@
                       width: 100%;
                       object-fit: cover">
         <div class="moment_card_statistic">
-          <p><router-link :to="userRoute">
+          <p><router-link :to="`/u/${momentVo.authorName}`">
             <i class="el-icon-user"/> {{momentVo.authorName}}
           </router-link></p>
         </div>
@@ -21,13 +21,13 @@
             <el-avatar @click="goUserPage" :src="momentVo.authorAvatar">author</el-avatar>
           </div>
         </div>
-        <p class="moment_card_title_wrapper"><router-link :to="playRoute">{{ momentVo.title }}</router-link></p>
+        <p class="moment_card_title_wrapper"><router-link @click="incrViews" :to="`/play/${momentVo.type}/${momentVo.mid}`">{{ momentVo.title }}</router-link></p>
         <p class="moment_card_desc">
           {{ momentVo.description === '' ? momentVo.authorName + ' \' s music ' + momentVo.type : momentVo.description }}
         </p>
         <div class="moment_card_opt">
           <div class="link_wrapper">
-            <router-link :to="playRoute">more<i class="el-icon-arrow-right"/> </router-link>
+            <router-link @click="incrViews" :to="`/play/${momentVo.type}/${momentVo.mid}`">more<i class="el-icon-arrow-right"/> </router-link>
           </div>
         </div>
       </div>
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+
+  import StatisticService from "../../api/statistic";
 
   export default {
     name: "MomentCard",
@@ -47,13 +49,20 @@
         playRoute: `/play/${this.momentVo.type}/${this.momentVo.mid}`
       }
     },
+    computed: {
+
+    },
     components: {
 
     },
     methods: {
       goUserPage(){
-        this.$router.push(this.userRoute)
+        this.$router.push(`/u/${this.momentVo.authorName}`)
+      },
+      incrViews(){
+        StatisticService.viewsIncr(this.momentVo.mid)
       }
+
 
     }
   }

@@ -3,12 +3,13 @@
     <div class="mmt_square_top_wrapper">
       <h3 style="height: 60px; line-height: 60px; margin: 0;
                  border-top: solid rgb(213,213,213) 2px;
-                 border-right: solid rgb(213,213,213) 2px;">
+                 border-right: solid rgb(213,213,213) 2px;
+                 color: #606266">
         specially recommend of today
       </h3>
-      <el-carousel :interval="4000" type="card" height="278px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <carousel-card/>
+      <el-carousel :interval="4000" type="card" height="288px">
+        <el-carousel-item v-for="(vo, index) in carouselItems" >
+          <carousel-card :carousel-card-vo="vo"/>
         </el-carousel-item>
       </el-carousel>
       <div style="height: 30px;
@@ -72,7 +73,6 @@
     },
     data() {
       return {
-        currentPage: 1,
         setting: {
           typeId: 3, // default video and audio
           order: momentService.ORDER_BY_VIEWS,
@@ -85,6 +85,15 @@
           total: 0
         },
         moments: [],
+        carouselItems: [
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {}
+        ],
       }
     },
     computed: {
@@ -119,6 +128,11 @@
         this.setting.order = value
         this.getMoments()
       },
+      getCarousel(){
+        momentService.getSquareCarouselVo().then(res => {
+          this.carouselItems = res.data.data
+        })
+      },
       init() {
         this.setting.type = Constant.mediaIdTypeMap.get(this.setting.typeId)
       }
@@ -126,6 +140,7 @@
     mounted() {
       this.init()
       this.getMoments()
+      this.getCarousel()
     }
   }
 </script>

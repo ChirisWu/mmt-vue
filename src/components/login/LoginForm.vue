@@ -104,28 +104,23 @@ export default {
         if (valid){
           this.loading = true
           accountService.access_token(this.loginParam.username, this.loginParam.password).then(res => {
-            if (res.data.status.statusCode === 200){
-              let data = res.data.data
-              set_access_token(data.tokenHead + ' ' + data.token, data.expiresIn)
-              set_refresh_token(data.refreshToken)
-              // localStorage.setItem(Constant.localStoreUsernameKey, this.loginParam.username)
-              this.$store.commit('setCurrentUsername', this.loginParam.username)
-              this.loading = false
-              this.$router.push({
-                name: 'User',
-                params:{
-                  uname: this.loginParam.username
-                }
-              })
-
-            }else{
-              this.$message.info(res.data.status.msg)
-            }
+            let data = res.data.data
+            set_access_token(data.tokenHead + ' ' + data.token, data.expiresIn)
+            set_refresh_token(data.refreshToken)
+            // localStorage.setItem(Constant.localStoreUsernameKey, this.loginParam.username)
+            this.$store.commit('setCurrentUsername', this.loginParam.username)
+            this.loading = false
+            this.$router.push({
+              name: 'User',
+              params:{
+                uname: this.loginParam.username
+              }
+            })
             this.loading = false
           }).catch(e =>{
+            this.loading = false
             this.$message.error(e.message)
             console.log(e)
-            this.loading = false
             this.$message.error(e.message)
             console.log(e.message)
 

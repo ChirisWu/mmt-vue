@@ -55,6 +55,11 @@ const routes = [
         name: 'Play',
         component: () => import('@/views/VideoRadioPlayPage')
       },
+      {
+        path: '/settings',
+        name: 'Setting',
+        component: () => import('@c/userPage/UserSettings')
+      }
     ]
   },
   {
@@ -99,10 +104,10 @@ const routes = [
 
 
 
-  {
-    path: '/:catchAll(.*)',
-    redirect: '/404'
-  }
+  // {
+  //   path: '/:catchAll(.*)',
+  //   redirect: '/404'
+  // }
 
 
 
@@ -124,7 +129,6 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next('/login')
   // }
-  console.log(to)
   next()
 })
 

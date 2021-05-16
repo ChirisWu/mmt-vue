@@ -135,7 +135,6 @@
         canLeave = false
       },
       handleVideoTitle(title) {
-        console.log(title)
         this.fileName = title
         this.videoContent.title = title.substring(0, title.indexOf("."))
 
@@ -192,7 +191,7 @@
             })
           }
           this.publishState = this.publishStateEnum.uploadMedia
-          canLeave = true
+          this.$router.go(0)
         }).catch(err => {
           this.uploading = false
           this.$notify.error({
@@ -209,7 +208,7 @@
         let filename = url.substring(url.lastIndexOf('/') + 1, url.length)
         ossService.deleteOss(filename)
         this.$notify.info(({
-          message: `${filename}has canceled upload`,
+          message: `${this.filename} has canceled upload`,
           title: 'cancel',
           position: 'top-left',
           offset: 100

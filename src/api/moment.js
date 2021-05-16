@@ -60,5 +60,11 @@ momentService.getSquareMoments = (current, size, typeId, order) => {
     })
 }
 
+momentService.getSquareCarouselVo = () => {
+    return http({
+        url: BASE_URL + '/square/carousel',
+        method: 'get'
+    })
+}
 
 export default momentService
